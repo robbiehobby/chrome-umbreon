@@ -1,20 +1,48 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  label {
-    @apply block;
-  }
+@plugin "daisyui" {
+  include: button, card, collapse, range, swap, toggle;
 }
 
-@layer components {
+@plugin "daisyui/theme" {
+  --color-primary: #fdbd4c;
+  --color-secondary: #5d5ce6;
+  --color-neutral: #ced4da;
+
+  name: light;
+  default: true;
+  color-scheme: light;
+}
+
+@plugin "daisyui/theme" {
+  --color-primary: #dbae59;
+  --color-secondary: #5d5ce6;
+  --color-neutral: #3b4042;
+
+  name: dark;
+  prefersdark: true;
+  color-scheme: dark;
+}
+
+@utility text-ghost {
+  @apply text-gray-500;
+}
+
+@utility outline-none {
+  outline: none !important;
+}
+
+@utility stroke-linecap {
+  stroke-linecap: round;
+}
+
+@utility stroke-linejoin {
+  stroke-linejoin: round;
+}
+
+@layer {
   .text-ghost {
     @apply text-gray-500;
-  }
-
-  :is(.border, .border-t, .border-e, .border-b, .border-s) {
-    @apply border-neutral;
   }
 
   .toggle {
@@ -22,19 +50,19 @@
   }
 
   .label {
-    @apply py-4 px-5 border-b text-sm;
+    @apply flex justify-between py-4 px-5 border-b border-neutral text-sm;
   }
 
   .range-group {
-    @apply py-4 border-b;
+    @apply py-4 border-b border-neutral;
   }
 
   .range-control {
-    @apply px-5;
+    @apply block px-5;
   }
 
   .range {
-    @apply range-xs range-secondary;
+    @apply range-xs range-secondary w-full;
   }
 
   .range-label {
@@ -54,11 +82,11 @@
   }
 
   .collapse[open] .collapse-title {
-    @apply text-secondary border-b;
+    @apply text-secondary border-b border-neutral;
   }
 
   .btn {
-    @apply btn-xs rounded-sm cursor-pointer;
+    @apply btn-soft btn-xs rounded-sm cursor-pointer;
   }
 
   .btn-xs {
@@ -73,21 +101,11 @@
     @apply w-3 h-3;
   }
 
+  .lucide-md {
+    @apply w-6 h-6;
+  }
+
   .lucide-lg {
     @apply w-16 h-16;
-  }
-}
-
-@layer utilities {
-  .outline-none {
-    outline: none !important;
-  }
-
-  .stroke-linecap {
-    stroke-linecap: round;
-  }
-
-  .stroke-linejoin {
-    stroke-linejoin: round;
   }
 }

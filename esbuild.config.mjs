@@ -23,8 +23,8 @@ async function run() {
   });
 
   const tw = spawn(
-    "tailwindcss",
-    ["-i", "./src/page/main.css", "-o", "./public/page/styles.css", build ? "--minify" : "--watch"],
+    "npx",
+    ["@tailwindcss/cli", "-i", "./src/page/main.css", "-o", "./public/page/styles.css", build ? "--minify" : "--watch"],
     { stdio: "inherit" },
   );
 

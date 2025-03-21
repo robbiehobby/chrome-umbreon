@@ -1,14 +1,12 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  include: button, card, collapse, range, swap, toggle;
+  include: button, card, range, swap, toggle;
 }
 
 @plugin "daisyui/theme" {
-  --color-primary: #fdbd4c;
-  --color-secondary: #5d5ce6;
-  --color-neutral: #ced4da;
-  --color-neutral-content: #6a7282;
+  --color-primary: #5d5ce6;
+  --color-secondary: #fdbd4c;
 
   name: light;
   default: true;
@@ -16,22 +14,12 @@
 }
 
 @plugin "daisyui/theme" {
-  --color-primary: #dbae59;
-  --color-secondary: #5d5ce6;
-  --color-neutral: #3b4042;
-  --color-neutral-content: #99a1af;
+  --color-primary: #5d5ce6;
+  --color-secondary: #dbae59;
 
   name: dark;
   prefersdark: true;
   color-scheme: dark;
-}
-
-@utility text-ghost {
-  @apply text-neutral-content;
-}
-
-@utility outline-none {
-  outline: none !important;
 }
 
 @utility stroke-linecap {
@@ -44,15 +32,15 @@
 
 @layer {
   .toggle {
-    @apply toggle-secondary toggle-xs;
+    @apply toggle-primary toggle-xs;
+  }
+
+  .border-bottom {
+    @apply border-b border-b-base-content/5;
   }
 
   .label {
-    @apply flex justify-between py-4 px-5 border-b border-neutral text-sm;
-  }
-
-  .range-group {
-    @apply py-4 border-b border-neutral;
+    @apply flex justify-between py-4 px-5 text-sm;
   }
 
   .range-control {
@@ -60,7 +48,7 @@
   }
 
   .range {
-    @apply range-xs range-secondary w-full;
+    @apply range-xs range-primary w-full;
   }
 
   .range-label {
@@ -68,19 +56,7 @@
   }
 
   .range-indicator {
-    @apply min-w-16 text-gray-500 text-right;
-  }
-
-  .collapse-title {
-    @apply py-4 px-5 min-h-0 text-sm;
-  }
-
-  .collapse-content {
-    @apply !p-0 text-sm;
-  }
-
-  .collapse[open] .collapse-title {
-    @apply text-secondary border-b border-neutral;
+    @apply min-w-16 text-right opacity-60;
   }
 
   .btn {

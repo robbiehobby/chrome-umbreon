@@ -1,8 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/chrome-manifest.json",
   "manifest_version": 3,
-  "name": "__MSG_17AAD1CAF0F1__",
-  "description": "__MSG_FEB7AFE4BDB8__",
+  "name": "__MSG_name__",
+  "description": "__MSG_description__",
   "action": {
     "default_popup": "public/page/index.html",
     "default_icon": {
@@ -17,7 +17,7 @@
   },
   "commands": {
     "toggle-dimmer": {
-      "description": "__MSG_8F71C36814D1__"
+      "description": "__MSG_commandName__"
     }
   },
   "content_security_policy": {
@@ -44,6 +44,7 @@
     "48": "public/assets/icon48.png",
     "128": "public/assets/icon128.png"
   },
+  "options_page": "public/page/index.html",
   "permissions": [
     "activeTab",
     "scripting",

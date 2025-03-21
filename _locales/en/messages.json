@@ -1,62 +1,53 @@
 {
-  "17AAD1CAF0F1": {
+  "name": {
     "message": "Page Dimmer"
   },
-  "FEB7AFE4BDB8": {
+  "description": {
     "message": "A lightweight and customizable page dimmer."
   },
-  "8F71C36814D1": {
+  "commandName": {
     "message": "Toggle Dimmer"
   },
-  "AA24C02867B0": {
+  "blocked": {
     "message": "The current tab cannot be dimmed."
   },
-  "2BE81B5A153F": {
+  "turnOn": {
     "message": "Dim"
   },
-  "6C22C815681D": {
-    "message": "Undim"
+  "turnOff": {
+    "message": "Brighten"
   },
-  "FE3A8E83CBA3": {
-    "message": "Global settings"
+  "globalSettings": {
+    "message": "Use global settings"
   },
-  "6AAC4C79C0E0": {
+  "max": {
     "message": "Max"
   },
-  "2BB7B6641B63": {
+  "brightness": {
     "message": "Brightness"
   },
-  "571F8C89DA81": {
+  "contrast": {
     "message": "Contrast"
   },
-  "E2B910FC5B59": {
+  "sepia": {
     "message": "Sepia"
   },
-  "505BD2B83BB5": {
+  "grayscale": {
     "message": "Grayscale"
   },
-  "A600CE181C51": {
-    "message": "Advanced"
-  },
-  "599DE1C1296A": {
+  "keyboardShortcuts": {
     "message": "Keyboard shortcuts"
   },
-  "C8BCFC736FF8": {
-    "message": "Configure"
+  "resetTab": {
+    "message": "Reset this website"
   },
-  "8031EA1182E7": {
-    "message": "Reset current website"
-  },
-  "5632B27119C8": {
-    "message": "Reset everything"
-  },
-  "B6588E629DCB": {
-    "message": "Reset"
-  },
-  "871A08C3AEDD": {
+  "resetTabConfirm": {
     "message": "Do you want to reset the current website settings?"
   },
-  "510764E09AD0": {
+  "resetAll": {
+    "message": "Reset all websites"
+  },
+  "resetAllConfirm": {
     "message": "Do you want to reset all website and global settings?"
   }
 }

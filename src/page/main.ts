@@ -22,8 +22,8 @@ function showPage(status = true) {
 }
 
 function updateEnabledLabel(enabled = false) {
-  if (enabled) el.enabledLabel.innerText = chrome.i18n.getMessage("6C22C815681D");
-  else el.enabledLabel.innerText = chrome.i18n.getMessage("2BE81B5A153F");
+  if (enabled) el.enabledLabel.innerText = chrome.i18n.getMessage("turnOff");
+  else el.enabledLabel.innerText = chrome.i18n.getMessage("turnOn");
 }
 
 function getValues(): Settings {
@@ -82,12 +82,12 @@ function App(tab: Tab, settings: Settings) {
 
   // Reset settings.
   el.resetTab.addEventListener("click", () => {
-    if (window.confirm(chrome.i18n.getMessage("871A08C3AEDD"))) {
+    if (window.confirm(chrome.i18n.getMessage("resetTabConfirm"))) {
       chrome.runtime.sendMessage({ type: "resetSettings", payload: [tab] }, () => window.location.reload());
     }
   });
   el.resetAll.addEventListener("click", () => {
-    if (window.confirm(chrome.i18n.getMessage("510764E09AD0"))) {
+    if (window.confirm(chrome.i18n.getMessage("resetAllConfirm"))) {
       chrome.runtime.sendMessage({ type: "resetSettings", payload: [tab, true] }, () => window.location.reload());
     }
   });

@@ -10,78 +10,67 @@
   <div id="alert" class="flex items-center text-sm py-12 px-5">
     <div class="grow text-center">
       <svg viewBox="0 0 24 24" class="lucide lucide-lg text-error mx-auto mb-5"><use href="#icon-disabled" /></svg>
-      <p data-text="AA24C02867B0"></p>
+      <p data-text="blocked"></p>
     </div>
   </div>
 
   <form id="form" class="w-full">
-    <label class="label py-3.5">
-      <span id="enabledLabel" class="pe-3" data-text="2BE81B5A153F"></span>
+    <label class="label py-3.5 border-bottom">
+      <span id="enabledLabel" class="pe-3" data-text="turnOn"></span>
       <span class="swap swap-rotate me-0.5">
         <input type="checkbox" name="enabled" />
-        <svg viewBox="0 0 24 24" class="swap-on lucide lucide-md !stroke-secondary stroke-2"><use href="#icon-moon" /></svg>
-        <svg viewBox="0 0 24 24" class="swap-off lucide lucide-md !stroke-primary stroke-2"><use href="#icon-sun" /></svg>
+        <svg viewBox="0 0 24 24" class="swap-on lucide lucide-md !stroke-primary stroke-2"><use href="#icon-moon" /></svg>
+        <svg viewBox="0 0 24 24" class="swap-off lucide lucide-md !stroke-secondary stroke-2"><use href="#icon-sun" /></svg>
       </span>
     </label>
 
-    <label class="label">
-      <span data-text="FE3A8E83CBA3"></span>
+    <label class="label border-bottom">
+      <span data-text="globalSettings"></span>
       <input type="checkbox" name="global" class="toggle" checked />
     </label>
 
-    <div class="range-group">
+    <div class="range-group py-4 border-bottom">
       <label class="range-control">
         <span class="range-label">
-          <span data-text="2BB7B6641B63"></span>
-          <span class="range-indicator" data-text="6AAC4C79C0E0"></span>
+          <span data-text="brightness"></span>
+          <span class="range-indicator" data-text="max"></span>
         </span>
         <input type="range" name="brightness" min="0" max="1" step="0.025" value="0.5" data-settings class="range mb-3" />
       </label>
 
       <label class="range-control">
         <span class="range-label">
-          <span data-text="571F8C89DA81"></span>
-          <span class="range-indicator" data-text="6AAC4C79C0E0"></span>
+          <span data-text="contrast"></span>
+          <span class="range-indicator" data-text="max"></span>
         </span>
         <input type="range" name="contrast" min="0" max="1" step="0.025" value="1" data-settings class="range mb-3" />
       </label>
 
       <label class="range-control">
         <span class="range-label">
-          <span data-text="E2B910FC5B59"></span>
-          <span class="range-indicator" data-text="6AAC4C79C0E0"></span>
+          <span data-text="sepia"></span>
+          <span class="range-indicator" data-text="max"></span>
         </span>
         <input type="range" name="sepia" min="0" max="1" step="0.025" value="0" data-settings class="range mb-3" />
       </label>
 
       <label class="range-control">
         <span class="range-label">
-          <span data-text="505BD2B83BB5"></span>
-          <span class="range-indicator" data-text="6AAC4C79C0E0"></span>
+          <span data-text="grayscale"></span>
+          <span class="range-indicator" data-text="max"></span>
         </span>
         <input type="range" name="grayscale" min="0" max="1" step="0.025" value="0" data-settings class="range" />
       </label>
     </div>
 
-    <details class="collapse outline-none">
-      <summary class="collapse-title" data-text="A600CE181C51"></summary>
-      <div class="collapse-content">
-        <div class="label">
-          <span data-text="599DE1C1296A"></span>
-          <button type="button" id="shortcut" class="btn btn-secondary" data-text="C8BCFC736FF8"></button>
-        </div>
+    <div class="label border-bottom">
+      <button type="button" id="shortcut" class="btn btn-primary grow" data-text="keyboardShortcuts"></button>
+    </div>
 
-        <div class="label">
-          <span data-text="8031EA1182E7"></span>
-          <button type="button" id="resetTab" class="btn btn-error" data-text="B6588E629DCB"></button>
-        </div>
-
-        <div class="label border-b-0">
-          <span data-text="5632B27119C8"></span>
-          <button type="button" id="resetAll" class="btn btn-error" data-text="B6588E629DCB"></button>
-        </div>
-      </div>
-    </details>
+    <div class="label gap-2">
+      <button type="button" id="resetTab" class="btn btn-warning grow" data-text="resetTab"></button>
+      <button type="button" id="resetAll" class="btn btn-error grow" data-text="resetAll"></button>
+    </div>
   </form>
 
   <script type="module" src="i18n.js"></script>

@@ -25,18 +25,29 @@ function getHostname(tab: Tab) {
   }
 }
 
-async function updateIcon(enabled = false) {
-  const path: Record<string, string> = {};
-  [16, 32, 48, 128].forEach((size) => {
-    path[size] = `../assets/${enabled ? "icon" : "inactive"}${size}.png`;
-  });
-  await chrome.action.setIcon({ path });
+// Test ability to run content scripts on a tab.
+async function isScriptableTab(tab: Tab) {
+  if (!tab?.id) return false;
+  try {
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: () => true,
+    });
+  } catch (_e) {
+    return false;
+  }
+  return true;
 }
 
 // Execute content script on a tab.
 function executeScript(tab: Tab) {
-  if (!tab?.id) return Promise.resolve(null);
-  return chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["public/js/content.js"] });
+  if (!tab?.id) return;
+  chrome.tabs.query({ url: `*://${getHostname(tab)}/*` }, (tabs) => {
+    tabs.forEach((_tab) => {
+      if (!_tab?.id || !isScriptableTab(_tab)) return;
+      chrome.scripting.executeScript({ target: { tabId: _tab.id }, files: ["public/js/content.js"] });
+    });
+  });
 }
 
 // Get a tabs settings.
@@ -67,9 +78,7 @@ async function saveSettings(tab: Tab, settings: Settings, raw = false) {
     settings.overlay = tabSettings.overlay;
   }
 
-  chrome.storage.local.set({ [hostname]: settings }, () => {
-    executeScript(tab).then(() => updateIcon(settings.enabled));
-  });
+  chrome.storage.local.set({ [hostname]: settings }, () => executeScript(tab));
 }
 
 // Reset settings of all tabs.
@@ -81,21 +90,7 @@ async function resetSettings(tab: Tab, global: boolean = false) {
     const hostname = getHostname(tab);
     if (hostname) await chrome.storage.local.set({ [hostname]: defaultSettings });
   }
-  if (tab) executeScript(tab).then(() => updateIcon(false));
-}
-
-// Test ability to run content scripts on a tab.
-async function isScriptableTab(tab: Tab) {
-  if (!tab?.id) return false;
-  try {
-    await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      func: () => true,
-    });
-  } catch (_e) {
-    return false;
-  }
-  return true;
+  if (tab) executeScript(tab);
 }
 
 // Handle message commands from content scripts.
@@ -105,7 +100,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   switch (message.type) {
     case "getTab":
-      chrome.tabs.query({ active: true }, (tabs) => sendResponse(tabs[0]));
+      chrome.tabs.query({ currentWindow: true, active: true }, (tabs) => sendResponse(tabs[0]));
       return true;
     case "isScriptableTab":
       isScriptableTab(...(payload as [Tab])).then((a) => sendResponse(a));
@@ -127,10 +122,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 // Handle tab changes.
 async function onChange(tab: Tab, activated = false) {
-  if (!(await isScriptableTab(tab))) return updateIcon(false);
+  if (!(await isScriptableTab(tab))) return;
   const tabSettings = await getSettings(tab, true);
   if (activated) await saveSettings(tab, { ...tabSettings, enabled: !tabSettings.enabled }, true);
-  else executeScript(tab).then(() => updateIcon(tabSettings.enabled));
+  else executeScript(tab);
 }
 
 // Watch for toggle command.

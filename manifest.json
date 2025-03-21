@@ -6,10 +6,10 @@
   "action": {
     "default_popup": "public/page/index.html",
     "default_icon": {
-      "16": "public/assets/inactive16.png",
-      "32": "public/assets/inactive32.png",
-      "48": "public/assets/inactive48.png",
-      "128": "public/assets/inactive128.png"
+      "16": "public/assets/icon16.png",
+      "32": "public/assets/icon32.png",
+      "48": "public/assets/icon48.png",
+      "128": "public/assets/icon128.png"
     }
   },
   "background": {

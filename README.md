@@ -3,4 +3,4 @@ Thanks to <a href="https://lucide.dev/">Lucide</a> for providing the icons and <
 
 <br>
 
-![](/metadata/dimmer-1.png)
+![](/metadata/page-dimmer-1.png)

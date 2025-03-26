@@ -71,7 +71,7 @@ chrome.runtime.onMessage.addListener((message, sender, response) => {
 
 // Watch for the toggle command to be activated.
 chrome.commands.onCommand.addListener(async (command) => {
-  if (command !== "toggle-screen-dimmer") return;
+  if (command !== "toggle-dimmer") return;
   const settings = await getSettings();
   if (settings) {
     settings.website.on = !settings.website.on;

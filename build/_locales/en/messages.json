@@ -1,18 +1,18 @@
 {
   "name": {
-    "message": "Screen Dimmer"
+    "message": "Dim"
   },
   "description": {
     "message": "A Chromium extension designed to dim or change the color tone of websites."
   },
   "commandName": {
-    "message": "Toggle Screen Dimmer"
+    "message": "Toggle Dimmer"
   },
   "on": {
     "message": "Dim website"
   },
   "onHelp": {
-    "message": "Turn on the screen dimmer for this website."
+    "message": "Turn on the dimmer for this website."
   },
   "onDisabledHelp": {
     "message": "Unfortunately, due to browser limitations, this website cannot be dimmed."

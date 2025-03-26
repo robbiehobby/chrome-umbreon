@@ -78,3 +78,8 @@ chrome.commands.onCommand.addListener(async (command) => {
     await saveSettings(settings);
   }
 });
+
+// Watch for the active tab to change.
+chrome.tabs.onActivated.addListener(async (activeInfo) => {
+  if (activeInfo.tabId) await updateTabs(await getSettings());
+});

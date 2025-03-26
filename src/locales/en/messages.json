@@ -1,0 +1,47 @@
+{
+  "name": {
+    "message": "Screen Dimmer"
+  },
+  "description": {
+    "message": "A Chromium extension designed to dim or change the color tone of websites."
+  },
+  "commandName": {
+    "message": "Toggle Screen Dimmer"
+  },
+  "on": {
+    "message": "Dim website"
+  },
+  "onHelp": {
+    "message": "Turn on the screen dimmer for this website."
+  },
+  "onDisabledHelp": {
+    "message": "Unfortunately, due to browser limitations, this website cannot be dimmed."
+  },
+  "global": {
+    "message": "Use global settings"
+  },
+  "globalHelp": {
+    "message": "Use global settings that apply to all websites with this option enabled."
+  },
+  "opacity": {
+    "message": "Intensity"
+  },
+  "opacityHelp": {
+    "message": "Adjust the intensity of the screen dimming overlay."
+  },
+  "color": {
+    "message": "Color"
+  },
+  "resetWebsite": {
+    "message": "Reset website"
+  },
+  "resetWebsiteConfirm": {
+    "message": "Are you sure you want to reset the settings for this website?"
+  },
+  "resetAll": {
+    "message": "Reset all websites"
+  },
+  "resetAllConfirm": {
+    "message": "Are you sure you want to reset the settings for all websites?"
+  }
+}

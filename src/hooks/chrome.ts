@@ -21,7 +21,7 @@ export default function useChrome() {
     try {
       return await chrome.runtime.sendMessage({ type: "getSettings" });
     } catch (_e) {
-      return defaultSettings;
+      return structuredClone(defaultSettings);
     }
   };
 

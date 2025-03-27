@@ -7,7 +7,9 @@ async function updateTabs(settings: typeof defaultSettings) {
   await Promise.all(
     tabs.map(async (tab) => {
       if (!tab.id) return;
-      await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["assets/content.js"] });
+      try {
+        await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["assets/content.js"] });
+      } catch (_e) {}
     }),
   );
 }

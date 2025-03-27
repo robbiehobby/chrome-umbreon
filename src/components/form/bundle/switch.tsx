@@ -1,12 +1,12 @@
+import { ReactNode } from "react";
 import { Check, X } from "lucide-react";
 import { Switch } from "@chakra-ui/react";
-import { ReactNode } from "react";
 
 interface SwitchProps extends Switch.RootProps {
   displayLabel: string | ReactNode;
 }
 
-export default function SwitchElement(props: SwitchProps) {
+export default function FormSwitch(props: SwitchProps) {
   const { displayLabel, ...restProps } = props;
 
   return (

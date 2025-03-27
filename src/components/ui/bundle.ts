@@ -1,5 +1,5 @@
-import TooltipElement from "./bundle/tooltip.tsx";
+import UiTooltip from "./bundle/tooltip.tsx";
 
 export default function Ui() {}
 
-Ui.Tooltip = TooltipElement;
+Ui.Tooltip = UiTooltip;

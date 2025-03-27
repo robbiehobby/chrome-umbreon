@@ -1,6 +1,6 @@
-import { Box, Button, Container, Group, HStack, parseColor, useToken } from "@chakra-ui/react";
+import { Box, Button, Container, Group, HStack, parseColor, Span } from "@chakra-ui/react";
 import { SetStateAction, useEffect, useState } from "react";
-import { Info, TriangleAlert, Zap } from "lucide-react";
+import { TriangleAlert, Zap } from "lucide-react";
 import useChrome, { defaultSettings } from "../hooks/chrome.ts";
 import pageHandler from "./page-handler.ts";
 import getMessage from "../i18n.ts";
@@ -27,19 +27,15 @@ export default function App() {
     return () => {};
   }, []);
 
-  const subtle = String(useToken("colors", "fg.subtle"));
-
   return (
     <Container w={400} p={4}>
       <Form.Switch
         displayLabel={
           <HStack>
-            <Ui.Tooltip
+            <Ui.Tooltip.Info
               content={disabled ? getMessage("onDisabledHelp") : getMessage("onHelp")}
               positioning={{ placement: "bottom-start" }}
-            >
-              <Info size={16} color={subtle} />
-            </Ui.Tooltip>{" "}
+            />
             {getMessage("on")}
           </HStack>
         }
@@ -54,9 +50,7 @@ export default function App() {
       <Form.Switch
         displayLabel={
           <HStack>
-            <Ui.Tooltip content={getMessage("globalHelp")} positioning={{ placement: "bottom-start" }}>
-              <Info size={16} color={subtle} />
-            </Ui.Tooltip>
+            <Ui.Tooltip.Info content={getMessage("globalHelp")} positioning={{ placement: "bottom-start" }} />
             {getMessage("global")}
           </HStack>
         }
@@ -72,9 +66,7 @@ export default function App() {
         <Form.Slider
           displayLabel={
             <HStack>
-              <Ui.Tooltip content={getMessage("opacityHelp")} positioning={{ placement: "bottom-start" }}>
-                <Info size={16} color={subtle} />
-              </Ui.Tooltip>
+              <Ui.Tooltip.Info content={getMessage("opacityHelp")} positioning={{ placement: "bottom-start" }} />
               {getMessage("opacity")}
             </HStack>
           }
@@ -97,11 +89,17 @@ export default function App() {
       />
 
       <Group attached grow gap={3}>
-        <Button variant="outline" size="sm" colorPalette="orange" onClick={() => pageHandler.resetWebsite(state)}>
-          <TriangleAlert /> {getMessage("resetWebsite")}
+        <Button colorPalette="gray" size="sm" variant="outline" onClick={() => pageHandler.resetWebsite(state)}>
+          <Span color="fg.warning">
+            <TriangleAlert />
+          </Span>
+          {getMessage("resetWebsite")}
         </Button>
-        <Button variant="outline" size="sm" colorPalette="orange" onClick={() => pageHandler.resetAll(state)}>
-          <Zap /> {getMessage("resetAll")}
+        <Button colorPalette="gray" size="sm" variant="outline" onClick={() => pageHandler.resetAll(state)}>
+          <Span color="fg.error">
+            <Zap />
+          </Span>
+          {getMessage("resetAll")}
         </Button>
       </Group>
     </Container>

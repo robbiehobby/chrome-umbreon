@@ -1,9 +1,9 @@
-import ColorPickerElement from "./bundle/color-picker.tsx";
-import SliderElement from "./bundle/slider.tsx";
-import SwitchElement from "./bundle/switch.tsx";
+import FormColorPicker from "./bundle/color-picker.tsx";
+import FormSlider from "./bundle/slider.tsx";
+import FormSwitch from "./bundle/switch.tsx";
 
 export default function Form() {}
 
-Form.ColorPicker = ColorPickerElement;
-Form.Slider = SliderElement;
-Form.Switch = SwitchElement;
+Form.ColorPicker = FormColorPicker;
+Form.Slider = FormSlider;
+Form.Switch = FormSwitch;

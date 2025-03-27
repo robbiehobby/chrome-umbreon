@@ -1,16 +1,18 @@
-import { Box, ColorPicker, InputGroup, Stack, VisuallyHidden } from "@chakra-ui/react";
 import { ReactNode } from "react";
+import { Box, ColorPicker, InputGroup, Stack, VisuallyHidden } from "@chakra-ui/react";
 
 interface ColorPickerProps extends ColorPicker.RootProps {
   displayLabel: string | ReactNode;
 }
 
-export default function ColorPickerElement(props: ColorPickerProps) {
+export default function FormColorPicker(props: ColorPickerProps) {
   const { displayLabel, ...restProps } = props;
 
   return (
     <ColorPicker.Root format="hsla" gap={0} open {...restProps}>
-      <VisuallyHidden>{displayLabel}</VisuallyHidden>
+      <VisuallyHidden>
+        <ColorPicker.Label>{displayLabel}</ColorPicker.Label>
+      </VisuallyHidden>
 
       <ColorPicker.Control>
         <InputGroup
@@ -22,7 +24,7 @@ export default function ColorPickerElement(props: ColorPickerProps) {
             </Stack>
           }
           endElementProps={{ px: 1 }}
-          endElement={<ColorPicker.EyeDropper size="xs" variant="plain" />}
+          endElement={<ColorPicker.EyeDropper size="xs" variant="plain" focusVisibleRing="inside" />}
         >
           <ColorPicker.Input />
         </InputGroup>
@@ -31,9 +33,12 @@ export default function ColorPickerElement(props: ColorPickerProps) {
       <ColorPicker.Content p={3} w="full" bg="none" border="subtle" rounded="sm" shadow="none" animation="none">
         <ColorPicker.Area />
 
-        <Box bg="red" rounded="md">
+        <Box bg="red" rounded="full">
           <ColorPicker.View format="hsla" mx={1.5}>
-            <ColorPicker.ChannelSlider channel="hue" />
+            <ColorPicker.ChannelSlider channel="hue">
+              <ColorPicker.ChannelSliderTrack shadow="none" />
+              <ColorPicker.ChannelSliderThumb />
+            </ColorPicker.ChannelSlider>
           </ColorPicker.View>
         </Box>
       </ColorPicker.Content>

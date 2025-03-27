@@ -3,7 +3,7 @@
     "message": "Dim"
   },
   "description": {
-    "message": "A Chromium extension designed to dim or change the color tone of websites."
+    "message": "Chromium extension designed to dim or change the color tone of websites."
   },
   "commandName": {
     "message": "Toggle Dimmer"

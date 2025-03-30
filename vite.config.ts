@@ -15,6 +15,7 @@ export default defineConfig({
       ],
     }),
   ],
+  publicDir: "./static",
   build: {
     outDir: "build",
     rollupOptions: {

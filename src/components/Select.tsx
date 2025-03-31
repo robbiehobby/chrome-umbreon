@@ -40,5 +40,6 @@ const Select = (props: SelectProps) => {
 };
 
 export default memo(Select, (prevProps, nextProps) => {
-  return prevProps.value === nextProps.value;
+  if (prevProps.value && nextProps.value) return prevProps.value[0] === nextProps.value[0];
+  return false;
 });

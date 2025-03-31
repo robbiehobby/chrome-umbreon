@@ -1,5 +1,5 @@
 import { memo, ReactNode } from "react";
-import { Box, ColorPicker, InputGroup, parseColor, Stack, VisuallyHidden } from "@chakra-ui/react";
+import { ColorPicker, InputGroup, parseColor, Stack, VisuallyHidden } from "@chakra-ui/react";
 
 interface ColorPickerProps extends ColorPicker.RootProps {
   displayLabel: string | ReactNode;
@@ -12,15 +12,14 @@ const FormColorPicker = (props: ColorPickerProps) => {
   if (hex) restProps.value = parseColor(hex);
 
   return (
-    <ColorPicker.Root format="hsla" gap={0} open {...restProps}>
+    <ColorPicker.Root format="hsla" gap={0} px={4} pb={4} borderBottom="subtle" open {...restProps}>
       <VisuallyHidden>
         <ColorPicker.Label>{displayLabel}</ColorPicker.Label>
       </VisuallyHidden>
 
       <ColorPicker.Control>
         <InputGroup
-          mb={3}
-          startElementProps={{ px: 2.5 }}
+          startElementProps={{ px: 2 }}
           startElement={
             <Stack p={0.5} border="subtle" rounded="full">
               <ColorPicker.ValueSwatch boxSize="4.5" shadow="none" rounded="full" />
@@ -33,17 +32,15 @@ const FormColorPicker = (props: ColorPickerProps) => {
         </InputGroup>
       </ColorPicker.Control>
 
-      <ColorPicker.Content p={3} w="full" bg="none" border="subtle" rounded="sm" shadow="none" animation="none">
-        <ColorPicker.Area />
+      <ColorPicker.Content w="full" gap={0} mt={3} p={0} bg="none" shadow="none" animation="none">
+        <ColorPicker.Area roundedBottom="none" />
 
-        <Box bg="red" rounded="full">
-          <ColorPicker.View format="hsla" mx={1.5}>
-            <ColorPicker.ChannelSlider channel="hue">
-              <ColorPicker.ChannelSliderTrack shadow="none" />
-              <ColorPicker.ChannelSliderThumb />
-            </ColorPicker.ChannelSlider>
-          </ColorPicker.View>
-        </Box>
+        <ColorPicker.View format="hsla">
+          <ColorPicker.ChannelSlider channel="hue" roundedTop="none">
+            <ColorPicker.ChannelSliderTrack shadow="none" opacity={0.75} />
+            <ColorPicker.ChannelSliderThumb />
+          </ColorPicker.ChannelSlider>
+        </ColorPicker.View>
       </ColorPicker.Content>
 
       <ColorPicker.HiddenInput />

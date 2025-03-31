@@ -33,7 +33,13 @@ Tooltip.Root = forwardRef<HTMLDivElement, TooltipProps>((props, ref) => {
 Tooltip.Info = (props: TooltipProps) => {
   return (
     <Tooltip.Root {...props}>
-      <Span color="fg.subtle" rounded="full" tabIndex={0}>
+      <Span
+        color="fg.subtle"
+        rounded="full"
+        outline="none"
+        _focusVisible={{ color: "colorPalette.focusRing" }}
+        tabIndex={0}
+      >
         <Info size={16} />
       </Span>
     </Tooltip.Root>

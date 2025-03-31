@@ -1,5 +1,5 @@
 (function () {
-  let overlay: HTMLElement | null = document.querySelector("screen-dimmer");
+  let overlay: HTMLElement | null = document.querySelector("umbra-overlay");
 
   function update(settings: Settings, type: UpdateType = null) {
     if (!overlay) return;
@@ -7,11 +7,12 @@
 
     if (type === "activated") overlay.style.transitionProperty = "none";
 
+    overlay.style.transitionDuration = "0.15s";
+    overlay.style.transitionTimingFunction = "ease";
     overlay.style.visibility = settings.website.on ? "visible" : "hidden";
     overlay.style.opacity = settings.website.on ? String(mode.overlay.opacity) : "0";
     overlay.style.backgroundColor = mode.overlay.color;
-    overlay.style.transitionDuration = "0.15s";
-    overlay.style.transitionTimingFunction = "ease";
+    overlay.style.mixBlendMode = mode.overlay.blend;
 
     setTimeout(() => {
       overlay!.style.transitionProperty = "visibility, opacity";
@@ -19,7 +20,7 @@
   }
 
   async function create() {
-    overlay = document.createElement("screen-dimmer") as HTMLElement;
+    overlay = document.createElement("umbra-overlay") as HTMLElement;
     overlay.style.position = "fixed";
     overlay.style.zIndex = "2147483647";
     overlay.style.inset = "0";
@@ -33,7 +34,7 @@
     // Try to load the settings from local storage first.
     let settings: Settings | null = null;
     try {
-      settings = JSON.parse(localStorage.getItem("screen-dimmer") || "");
+      settings = JSON.parse(localStorage.getItem("umbra-overlay") || "");
     } catch (_error) {}
     if (!settings) {
       settings = await chrome.runtime.sendMessage({ type: "getSettings" });
@@ -44,7 +45,7 @@
 
   chrome.runtime.onMessage.addListener((message, sender) => {
     if (sender.id === chrome.runtime.id && message.action === "update") {
-      localStorage.setItem("screen-dimmer", JSON.stringify(message.payload.settings));
+      localStorage.setItem("umbra-overlay", JSON.stringify(message.payload.settings));
       update(message.payload.settings, message.payload.type);
     }
   });

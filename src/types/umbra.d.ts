@@ -1,15 +1,15 @@
 type Mode = "global" | "website";
 
+type Overlay = { opacity: number; blend: string; color: string };
+
 interface Settings {
   website: {
     hostname: string;
     on: boolean;
     mode: Mode;
-    overlay: { opacity: number; color: string };
+    overlay: Overlay;
   };
-  global: {
-    overlay: { opacity: number; color: string };
-  };
+  global: { overlay: Overlay };
 }
 
 interface State {

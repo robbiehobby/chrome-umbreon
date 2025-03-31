@@ -1,10 +1,14 @@
-import { Button, Container, Group, Stack } from "@chakra-ui/react";
+import { Button, Container, Group, Separator, Stack } from "@chakra-ui/react";
 import { memo, useEffect, useReducer } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
 import chromeApi, { defaultSettings } from "../apis/chrome.ts";
 import pageReducer from "./page-handler.ts";
 import Form from "../components/form/bundle.ts";
 import getMessage from "../i18n.ts";
+
+const render = {
+  seperator: <Separator size="xs" />,
+};
 
 export default function App() {
   const [state, dispatch] = useReducer(pageReducer, { settings: structuredClone(defaultSettings) });
@@ -49,7 +53,7 @@ export default function App() {
     <Container asChild gap={4} w={400} pt={4} px={0}>
       <Stack>
         <Form.Switch
-          displayLabel={getMessage("on")}
+          displayLabel={!settings.website.on ? getMessage("on") : getMessage("off")}
           tooltip={disabled ? getMessage("onDisabledHelp") : getMessage("onHelp")}
           checked={settings.website.on}
           onCheckedChange={(details) => onChange("setOn", details)}
@@ -64,6 +68,18 @@ export default function App() {
           disabled={disabled}
         />
 
+        {render.seperator}
+
+        <Form.Select
+          options={{
+            normal: "Normal",
+            multiply: "Multiply",
+            darken: "Darken",
+            luminosity: "Luminosity",
+          }}
+          defaultValue={settings[settings.website.mode].overlay.blend}
+          onChange={(event) => onChange("setBlend", event.target)}
+        />
         <Form.Slider
           displayLabel={getMessage("opacity")}
           tooltip={getMessage("opacityHelp")}
@@ -76,11 +92,15 @@ export default function App() {
           onValueChange={(details) => onChange("setOpacity", details)}
         />
 
+        {render.seperator}
+
         <Form.ColorPicker
           displayLabel={getMessage("color")}
           hex={settings[settings.website.mode].overlay.color}
           onValueChange={(details) => onChange("setColor", details)}
         />
+
+        {render.seperator}
 
         <ResetButtons />
       </Stack>

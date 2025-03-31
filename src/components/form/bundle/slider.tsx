@@ -21,7 +21,7 @@ const FormSlider = (props: SliderProps) => {
   }
 
   return (
-    <Slider.Root gap="md" px={4} borderBottom="subtle" {...restProps}>
+    <Slider.Root gap="md" px={4} mb={-4} {...restProps}>
       <HStack justify="space-between">
         <Slider.Label>
           <HStack>

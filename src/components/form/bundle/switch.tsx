@@ -12,7 +12,7 @@ const FormSwitch = (props: SwitchProps) => {
   const { displayLabel, tooltip, ...restProps } = props;
 
   return (
-    <Group display="flex" px={4} pb={4} borderBottom="subtle">
+    <Group display="flex" px={4}>
       <Ui.Tooltip.Info content={tooltip} />
 
       <Switch.Root display="flex" justifyContent="space-between" flexGrow={1} {...restProps}>

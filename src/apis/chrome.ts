@@ -1,13 +1,13 @@
+const overlay = { opacity: 0.5, blend: "multiply", color: "#18181a" };
+
 export const defaultSettings: Settings = {
   website: {
     hostname: "*",
     on: false,
     mode: "global",
-    overlay: { opacity: 0.5, color: "#18181a" },
+    overlay,
   },
-  global: {
-    overlay: { opacity: 0.5, color: "#18181a" },
-  },
+  global: { overlay },
 };
 
 export default function chromeApi() {}

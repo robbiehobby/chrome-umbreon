@@ -17,7 +17,7 @@
     "type": "module"
   },
   "commands": {
-    "toggle-dimmer": {
+    "activate": {
       "description": "__MSG_commandName__"
     }
   },

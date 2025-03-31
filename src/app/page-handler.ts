@@ -21,6 +21,10 @@ handler.setOpacity = (state: State, details: SliderValueChangeDetails) => {
   state.settings[state.settings.website.mode].overlay.opacity = details.value[0] / 100;
 };
 
+handler.setBlend = (state: State, details: HTMLSelectElement) => {
+  state.settings[state.settings.website.mode].overlay.blend = details.value;
+};
+
 handler.setColor = (state: State, details: ColorPickerValueChangeDetails) => {
   state.settings[state.settings.website.mode].overlay.color = details.value.toString("rgb");
 };

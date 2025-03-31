@@ -1,11 +1,11 @@
 (function () {
   let overlay: HTMLElement | null = document.querySelector("screen-dimmer");
 
-  function update(settings: Settings, activated = false) {
+  function update(settings: Settings, type: UpdateType = null) {
     if (!overlay) return;
     const mode = settings[settings.website.mode];
 
-    if (activated) overlay.style.transitionProperty = "none";
+    if (type === "activated") overlay.style.transitionProperty = "none";
 
     overlay.style.visibility = settings.website.on ? "visible" : "hidden";
     overlay.style.opacity = settings.website.on ? String(mode.overlay.opacity) : "0";
@@ -45,7 +45,7 @@
   chrome.runtime.onMessage.addListener((message, sender) => {
     if (sender.id === chrome.runtime.id && message.action === "update") {
       localStorage.setItem("screen-dimmer", JSON.stringify(message.payload.settings));
-      update(message.payload.settings, message.payload.activated);
+      update(message.payload.settings, message.payload.type);
     }
   });
 })();

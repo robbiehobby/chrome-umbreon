@@ -1,7 +1,7 @@
 import { defaultSettings } from "../apis/chrome.ts";
 
-async function updateTabs(settings: Settings, activated = false) {
-  if (settings.website.hostname === "*") return;
+async function updateTabs(settings: Settings, type: UpdateType = null) {
+  if (type !== "reset" && settings.website.hostname === "*") return;
   const tabs = await chrome.tabs.query({ url: `*://${settings.website.hostname}/*` });
   if (!tabs) return;
 
@@ -9,7 +9,7 @@ async function updateTabs(settings: Settings, activated = false) {
     tabs.map(async (tab) => {
       try {
         if (!tab.id) return;
-        await chrome.tabs.sendMessage(tab.id, { action: "update", payload: { settings, activated } });
+        await chrome.tabs.sendMessage(tab.id, { action: "update", payload: { settings, type } });
       } catch (_error) {}
     }),
   );
@@ -70,7 +70,7 @@ chrome.runtime.onMessage.addListener((message, sender, response) => {
       break;
 
     case "resetSettings":
-      chrome.storage.local.clear().then(() => updateTabs(defaultSettings));
+      chrome.storage.local.clear().then(() => updateTabs(defaultSettings, "reset"));
       break;
   }
 });
@@ -90,5 +90,5 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   if (changeInfo.status === "complete") await updateTabs(await getSettings(tabId));
 });
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
-  if (activeInfo.tabId) await updateTabs(await getSettings(activeInfo.tabId), true);
+  if (activeInfo.tabId) await updateTabs(await getSettings(activeInfo.tabId), "activated");
 });

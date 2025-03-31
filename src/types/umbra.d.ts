@@ -15,3 +15,5 @@ interface Settings {
 interface State {
   settings: Settings;
 }
+
+type UpdateType = null | "activated" | "reset";

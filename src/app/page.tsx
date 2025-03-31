@@ -12,7 +12,7 @@ export default function App() {
   const [state, dispatch] = useReducer(pageReducer, { settings: structuredClone(defaultSettings) });
   const { settings } = state;
 
-  useEffect(() => setDisabled(settings.website.hostname === "*"), [settings.website.hostname]);
+  useEffect(() => setDisabled(settings.website.hostname === "123456*"), [settings.website.hostname]);
 
   useEffect(() => {
     (async () => {
@@ -27,33 +27,16 @@ export default function App() {
   return (
     <Container w={400} p={4}>
       <Form.Switch
-        displayLabel={
-          <HStack>
-            <Ui.Tooltip.Info
-              content={disabled ? getMessage("onDisabledHelp") : getMessage("onHelp")}
-              positioning={{ placement: "bottom-start" }}
-            />
-            {getMessage("on")}
-          </HStack>
-        }
-        css={{ mb: 3, px: 3, py: 2.5 }}
-        border="subtle"
-        rounded="sm"
+        displayLabel={getMessage("on")}
+        tooltip={disabled ? getMessage("onDisabledHelp") : getMessage("onHelp")}
         checked={settings.website.on}
         onCheckedChange={(details) => onChange("setOn", details)}
         disabled={disabled}
       />
 
       <Form.Switch
-        displayLabel={
-          <HStack>
-            <Ui.Tooltip.Info content={getMessage("globalHelp")} positioning={{ placement: "bottom-start" }} />
-            {getMessage("global")}
-          </HStack>
-        }
-        css={{ mb: 3, px: 3, py: 2.5 }}
-        border="subtle"
-        rounded="sm"
+        displayLabel={getMessage("global")}
+        tooltip={getMessage("globalHelp")}
         checked={settings.website.mode === "global"}
         onCheckedChange={(details) => onChange("setMode", details)}
         disabled={disabled}

@@ -1,27 +1,37 @@
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import { Check, X } from "lucide-react";
-import { Switch } from "@chakra-ui/react";
+import { Group, Switch } from "@chakra-ui/react";
+import Ui from "../../ui/bundle.ts";
 
 interface SwitchProps extends Switch.RootProps {
   displayLabel: string | ReactNode;
+  tooltip: string;
 }
 
-export default function FormSwitch(props: SwitchProps) {
-  const { displayLabel, ...restProps } = props;
+const FormSwitch = (props: SwitchProps) => {
+  const { displayLabel, tooltip, ...restProps } = props;
 
   return (
-    <Switch.Root w="full" justifyContent="space-between" gap="3" {...restProps}>
-      <Switch.Label>{displayLabel}</Switch.Label>
+    <Group display="flex" mb={3}>
+      <Ui.Tooltip.Info content={tooltip} />
 
-      <Switch.Control>
-        <Switch.Thumb>
-          <Switch.ThumbIndicator fallback={<X size={12} color="black" />}>
-            <Check size={12} color="black" />
-          </Switch.ThumbIndicator>
-        </Switch.Thumb>
-      </Switch.Control>
+      <Switch.Root display="flex" justifyContent="space-between" flexGrow={1} {...restProps}>
+        <Switch.Label>{displayLabel}</Switch.Label>
 
-      <Switch.HiddenInput />
-    </Switch.Root>
+        <Switch.Control>
+          <Switch.Thumb>
+            <Switch.ThumbIndicator fallback={<X size={12} color="black" />}>
+              <Check size={12} color="black" />
+            </Switch.ThumbIndicator>
+          </Switch.Thumb>
+        </Switch.Control>
+
+        <Switch.HiddenInput />
+      </Switch.Root>
+    </Group>
   );
-}
+};
+
+export default memo(FormSwitch, (prevProps, nextProps) => {
+  return prevProps.checked === nextProps.checked;
+});

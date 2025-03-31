@@ -13,7 +13,7 @@ const Color = (props: ColorPickerProps) => {
 
   return (
     <ColorPicker.Root format="hsla" gap={0} px={4} open {...restProps}>
-      <VisuallyHidden>
+      <VisuallyHidden asChild>
         <ColorPicker.Label>{displayLabel}</ColorPicker.Label>
       </VisuallyHidden>
 

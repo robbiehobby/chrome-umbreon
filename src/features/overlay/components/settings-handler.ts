@@ -1,4 +1,9 @@
-import { ColorPickerValueChangeDetails, SliderValueChangeDetails, SwitchCheckedChangeDetails } from "@chakra-ui/react";
+import {
+  ColorPickerValueChangeDetails,
+  SelectValueChangeDetails,
+  SliderValueChangeDetails,
+  SwitchCheckedChangeDetails,
+} from "@chakra-ui/react";
 import chromeApi, { defaultSettings } from "../api/chrome.ts";
 
 type Action = { type: string; details: any; dispatch?: (action: Action) => void };
@@ -21,8 +26,8 @@ handler.setOpacity = (state: State, details: SliderValueChangeDetails) => {
   state.settings[state.settings.website.mode].overlay.opacity = details.value[0] / 100;
 };
 
-handler.setBlend = (state: State, details: HTMLSelectElement) => {
-  state.settings[state.settings.website.mode].overlay.blend = details.value;
+handler.setBlend = (state: State, details: SelectValueChangeDetails) => {
+  state.settings[state.settings.website.mode].overlay.blend = String(details.value[0]);
 };
 
 handler.setColor = (state: State, details: ColorPickerValueChangeDetails) => {

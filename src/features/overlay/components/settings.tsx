@@ -1,4 +1,4 @@
-import { Button, Container, Group, Separator, Stack } from "@chakra-ui/react";
+import { Button, Container, createListCollection, Group, Separator, Stack } from "@chakra-ui/react";
 import { memo, useEffect, useReducer } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
 import Color from "../../../components/Color.tsx";
@@ -15,6 +15,7 @@ const render = {
 export default function Settings() {
   const [state, dispatch] = useReducer(settingsReducer, { settings: structuredClone(defaultSettings) });
   const { settings } = state;
+  const mode = settings[settings.website.mode];
   const disabled = settings.website.hostname === "*";
 
   useEffect(() => {
@@ -72,14 +73,18 @@ export default function Settings() {
         {render.seperator}
 
         <Select
-          options={{
-            normal: "Normal",
-            multiply: "Multiply",
-            darken: "Darken",
-            luminosity: "Luminosity",
-          }}
-          defaultValue={settings[settings.website.mode].overlay.blend}
-          onValueChange={(event) => onChange("setBlend", event.target)}
+          fieldLabel="Blend Mode"
+          collection={createListCollection({
+            items: [
+              { value: "normal", label: "Normal" },
+              { value: "multiply", label: "Multiply" },
+              { value: "darken", label: "Darken" },
+              { value: "luminosity", label: "Luminosity" },
+            ],
+          })}
+          value={[mode.overlay.blend]}
+          defaultValue={[mode.overlay.blend]}
+          onValueChange={(details) => onChange("setBlend", details)}
         />
         <Slider
           displayLabel={chromeApi.getMessage("opacity")}
@@ -89,7 +94,7 @@ export default function Settings() {
           min={0}
           max={100}
           size="sm"
-          value={[settings[settings.website.mode].overlay.opacity * 100]}
+          value={[mode.overlay.opacity * 100]}
           onValueChange={(details) => onChange("setOpacity", details)}
         />
 
@@ -97,7 +102,7 @@ export default function Settings() {
 
         <Color
           displayLabel={chromeApi.getMessage("color")}
-          hex={settings[settings.website.mode].overlay.color}
+          hex={mode.overlay.color}
           onValueChange={(details) => onChange("setColor", details)}
         />
 

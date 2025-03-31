@@ -1,10 +1,9 @@
-import { Box, Button, Container, Group, HStack, parseColor, Span } from "@chakra-ui/react";
+import { Button, Container, Group, parseColor, Span } from "@chakra-ui/react";
 import { useEffect, useReducer, useState } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
 import chromeApi, { defaultSettings } from "../apis/chrome.ts";
 import pageReducer from "./page-handler.ts";
 import Form from "../components/form/bundle.ts";
-import Ui from "../components/ui/bundle.ts";
 import getMessage from "../i18n.ts";
 
 export default function App() {
@@ -42,24 +41,17 @@ export default function App() {
         disabled={disabled}
       />
 
-      <Box css={{ mb: 3, px: 3, pt: 2.5 }} border="subtle" rounded="sm">
-        <Form.Slider
-          displayLabel={
-            <HStack>
-              <Ui.Tooltip.Info content={getMessage("opacityHelp")} positioning={{ placement: "bottom-start" }} />
-              {getMessage("opacity")}
-            </HStack>
-          }
-          unit="%"
-          step={0.5}
-          min={0}
-          max={100}
-          size="sm"
-          mb={-1}
-          value={[settings[settings.website.mode].overlay.opacity * 100]}
-          onValueChange={(details) => onChange("setOpacity", details)}
-        />
-      </Box>
+      <Form.Slider
+        displayLabel={getMessage("opacity")}
+        tooltip={getMessage("opacityHelp")}
+        unit="%"
+        step={0.5}
+        min={0}
+        max={100}
+        size="sm"
+        value={[settings[settings.website.mode].overlay.opacity * 100]}
+        onValueChange={(details) => onChange("setOpacity", details)}
+      />
 
       <Form.ColorPicker
         displayLabel={getMessage("color")}

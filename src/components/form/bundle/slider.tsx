@@ -1,13 +1,15 @@
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import { HStack, Slider } from "@chakra-ui/react";
+import Ui from "../../ui/bundle.ts";
 
 interface SliderProps extends Slider.RootProps {
   displayLabel: string | ReactNode;
+  tooltip: string;
   unit: string;
 }
 
-export default function FormSlider(props: SliderProps) {
-  const { displayLabel, unit, ...restProps } = props;
+const FormSlider = (props: SliderProps) => {
+  const { displayLabel, tooltip, unit, ...restProps } = props;
 
   let marks: any[] = [];
   if (restProps.max) {
@@ -21,7 +23,11 @@ export default function FormSlider(props: SliderProps) {
   return (
     <Slider.Root gap="md" {...restProps}>
       <HStack justify="space-between">
-        <Slider.Label>{displayLabel}</Slider.Label>
+        <Slider.Label>
+          <HStack>
+            <Ui.Tooltip.Info content={tooltip} /> {displayLabel}
+          </HStack>
+        </Slider.Label>
         <HStack gap={0} color="fg.subtle">
           <Slider.ValueText /> {unit}
         </HStack>
@@ -32,8 +38,14 @@ export default function FormSlider(props: SliderProps) {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumbs />
-        {marks && <Slider.Marks marks={marks} mb="0" />}
+        {marks.length && <Slider.Marks marks={marks} mb="0" />}
       </Slider.Control>
     </Slider.Root>
   );
-}
+};
+
+export default memo(FormSlider, (prevProps, nextProps) => {
+  if (prevProps.disabled !== nextProps.disabled) return false;
+  if (prevProps.value && nextProps.value) return prevProps.value[0] === nextProps.value[0];
+  return false;
+});

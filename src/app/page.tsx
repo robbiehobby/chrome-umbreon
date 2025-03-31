@@ -1,5 +1,5 @@
 import { Button, Container, Group, Stack } from "@chakra-ui/react";
-import { memo, useEffect, useReducer, useState } from "react";
+import { memo, useEffect, useReducer } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
 import chromeApi, { defaultSettings } from "../apis/chrome.ts";
 import pageReducer from "./page-handler.ts";
@@ -7,17 +7,15 @@ import Form from "../components/form/bundle.ts";
 import getMessage from "../i18n.ts";
 
 export default function App() {
-  const [disabled, setDisabled] = useState(false);
   const [state, dispatch] = useReducer(pageReducer, { settings: structuredClone(defaultSettings) });
   const { settings } = state;
+  const disabled = settings.website.hostname === "*";
 
   useEffect(() => {
     (async () => {
       dispatch({ type: "loadSettings", details: await chromeApi.getSettings(), dispatch });
     })();
   }, []);
-
-  useEffect(() => setDisabled(settings.website.hostname === "*"), [settings.website.hostname]);
 
   const onChange = (type: string, details: any) => {
     dispatch({ type, details, dispatch });

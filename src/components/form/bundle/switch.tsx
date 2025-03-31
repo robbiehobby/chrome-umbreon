@@ -33,5 +33,6 @@ const FormSwitch = (props: SwitchProps) => {
 };
 
 export default memo(FormSwitch, (prevProps, nextProps) => {
+  if (prevProps.disabled !== nextProps.disabled) return false;
   return prevProps.checked === nextProps.checked;
 });

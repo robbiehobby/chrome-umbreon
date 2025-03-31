@@ -1,49 +1,51 @@
 (function () {
   let overlay: HTMLElement | null = document.querySelector("screen-dimmer");
 
-  if (!overlay) {
-    let localSettings: Settings | undefined;
-    let localMode;
-    try {
-      localSettings = JSON.parse(localStorage.getItem("screen-dimmer") || "");
-      localMode = localSettings?.website.mode;
-    } catch (_error) {}
+  function update(settings: Settings, activated = false) {
+    if (!overlay) return;
+    const mode = settings[settings.website.mode];
 
+    if (activated) overlay.style.transitionProperty = "none";
+
+    overlay.style.visibility = settings.website.on ? "visible" : "hidden";
+    overlay.style.opacity = settings.website.on ? String(mode.overlay.opacity) : "0";
+    overlay.style.backgroundColor = mode.overlay.color;
+    overlay.style.transitionDuration = "0.15s";
+    overlay.style.transitionTimingFunction = "ease";
+
+    setTimeout(() => {
+      overlay!.style.transitionProperty = "visibility, opacity";
+    }, 200);
+  }
+
+  async function create() {
     overlay = document.createElement("screen-dimmer") as HTMLElement;
     overlay.style.position = "fixed";
     overlay.style.zIndex = "2147483647";
     overlay.style.inset = "0";
     overlay.style.pointerEvents = "none";
-    overlay.style.visibility = localSettings?.website.on ? "visible" : "hidden";
-    if (localSettings && localMode) {
-      overlay.style.opacity = String(localSettings[localMode].overlay.opacity);
-      overlay.style.backgroundColor = localSettings[localMode].overlay.color;
-    } else {
-      overlay.style.opacity = "0";
-      overlay.style.backgroundColor = "#000";
-    }
+    overlay.style.visibility = "hidden";
+    overlay.style.opacity = "0";
+    overlay.style.backgroundColor = "#000";
     overlay.style.mixBlendMode = "multiply";
     document.documentElement.appendChild(overlay);
-  }
 
-  function init(settings: Settings) {
-    if (!overlay || !settings) return;
-    const { mode } = settings.website;
-
-    overlay.style.visibility = settings.website.on ? "visible" : "hidden";
-    overlay.style.opacity = settings.website.on ? String(settings[mode].overlay.opacity) : "0";
-    overlay.style.backgroundColor = settings[mode].overlay.color;
-
-    if (!overlay.style.transition) {
-      setTimeout(() => {
-        overlay.style.transition = "all";
-        overlay.style.transitionDuration = "0.25s";
-        overlay.style.transitionTimingFunction = "ease";
-      });
+    // Try to load the settings from local storage first.
+    let settings: Settings | null = null;
+    try {
+      settings = JSON.parse(localStorage.getItem("screen-dimmer") || "");
+    } catch (_error) {}
+    if (!settings) {
+      settings = await chrome.runtime.sendMessage({ type: "getSettings" });
     }
-
-    localStorage.setItem("screen-dimmer", JSON.stringify(settings));
+    if (settings) update(settings);
   }
+  if (!overlay) create();
 
-  chrome.runtime.sendMessage({ type: "getSettings" }, (settings: Settings) => init(settings));
+  chrome.runtime.onMessage.addListener((message, sender) => {
+    if (sender.id === chrome.runtime.id && message.action === "update") {
+      localStorage.setItem("screen-dimmer", JSON.stringify(message.payload.settings));
+      update(message.payload.settings, message.payload.activated);
+    }
+  });
 })();

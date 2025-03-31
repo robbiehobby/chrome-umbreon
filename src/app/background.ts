@@ -1,38 +1,41 @@
 import { defaultSettings } from "../apis/chrome.ts";
 
-async function updateTabs(settings: Settings) {
+async function updateTabs(settings: Settings, activated = false) {
+  if (settings.website.hostname === "*") return;
   const tabs = await chrome.tabs.query({ url: `*://${settings.website.hostname}/*` });
   if (!tabs) return;
 
   await Promise.all(
     tabs.map(async (tab) => {
-      if (!tab.id) return;
       try {
-        await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["assets/content.js"] });
+        if (!tab.id) return;
+        await chrome.tabs.sendMessage(tab.id, { action: "update", payload: { settings, activated } });
       } catch (_error) {}
     }),
   );
 }
 
-async function getSettings() {
-  const tabs = await chrome.tabs.query({ currentWindow: true, active: true });
-  const settings = structuredClone(defaultSettings);
+async function getSettings(tabId?: number) {
+  let tab: chrome.tabs.Tab | undefined;
+  if (tabId) tab = await chrome.tabs.get(tabId);
+  else tab = (await chrome.tabs.query({ currentWindow: true, active: true })).pop();
 
+  const settings = structuredClone(defaultSettings);
   const globalSettings = await chrome.storage.local.get(["_global"]);
   if (globalSettings._global) settings.global = globalSettings._global;
 
-  // Check whether the current tab can run content scripts.
-  if (!tabs.length || !tabs[0].id || !tabs[0].url) return settings;
+  // Check whether the tab can run content scripts.
+  if (!tab?.id || !tab.url) return settings;
   try {
     await chrome.scripting.executeScript({
-      target: { tabId: tabs[0].id },
+      target: { tabId: tab.id },
       func: () => true,
     });
   } catch (_error) {
     return settings;
   }
 
-  const { hostname } = new URL(tabs[0].url);
+  const { hostname } = new URL(tab.url);
   settings.website.hostname = hostname;
 
   const websiteSettings = await chrome.storage.local.get([hostname]);
@@ -59,7 +62,7 @@ chrome.runtime.onMessage.addListener((message, sender, response) => {
 
   switch (message.type) {
     case "getSettings":
-      getSettings().then((values) => response(values));
+      getSettings().then((settings) => response(settings));
       return true;
 
     case "saveSettings":
@@ -82,7 +85,10 @@ chrome.commands.onCommand.addListener(async (command) => {
   }
 });
 
-// Watch for the active tab to change.
+// Watch for changes in tabs.
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
+  if (changeInfo.status === "complete") await updateTabs(await getSettings(tabId));
+});
 chrome.tabs.onActivated.addListener(async (activeInfo) => {
-  if (activeInfo.tabId) await updateTabs(await getSettings());
+  if (activeInfo.tabId) await updateTabs(await getSettings(activeInfo.tabId), true);
 });

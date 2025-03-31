@@ -1,12 +1,15 @@
-import { ReactNode } from "react";
-import { Box, ColorPicker, InputGroup, Stack, VisuallyHidden } from "@chakra-ui/react";
+import { memo, ReactNode } from "react";
+import { Box, ColorPicker, InputGroup, parseColor, Stack, VisuallyHidden } from "@chakra-ui/react";
 
 interface ColorPickerProps extends ColorPicker.RootProps {
   displayLabel: string | ReactNode;
+  hex: string;
 }
 
-export default function FormColorPicker(props: ColorPickerProps) {
-  const { displayLabel, ...restProps } = props;
+const FormColorPicker = (props: ColorPickerProps) => {
+  const { displayLabel, hex, ...restProps } = props;
+
+  if (hex) restProps.value = parseColor(hex);
 
   return (
     <ColorPicker.Root format="hsla" gap={0} open {...restProps}>
@@ -46,4 +49,8 @@ export default function FormColorPicker(props: ColorPickerProps) {
       <ColorPicker.HiddenInput />
     </ColorPicker.Root>
   );
-}
+};
+
+export default memo(FormColorPicker, (prevProps, nextProps) => {
+  return prevProps.hex === nextProps.hex;
+});

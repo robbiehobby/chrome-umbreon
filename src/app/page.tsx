@@ -1,4 +1,4 @@
-import { Button, Container, Group, parseColor, Span } from "@chakra-ui/react";
+import { Button, Container, Group, Span } from "@chakra-ui/react";
 import { useEffect, useReducer, useState } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
 import chromeApi, { defaultSettings } from "../apis/chrome.ts";
@@ -56,7 +56,7 @@ export default function App() {
       <Form.ColorPicker
         displayLabel={getMessage("color")}
         mb={3}
-        value={parseColor(settings[settings.website.mode].overlay.color)}
+        hex={settings[settings.website.mode].overlay.color}
         onValueChange={(details) => onChange("setColor", details)}
       />
 

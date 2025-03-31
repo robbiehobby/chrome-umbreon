@@ -3,13 +3,13 @@ import { HStack, Slider as ChakraSlider } from "@chakra-ui/react";
 import Tooltip from "./Tooltip.tsx";
 
 interface SliderProps extends ChakraSlider.RootProps {
-  displayLabel: string | ReactNode;
+  fieldLabel: string | ReactNode;
   tooltip: string;
   unit: string;
 }
 
 const Slider = (props: SliderProps) => {
-  const { displayLabel, tooltip, unit, ...restProps } = props;
+  const { fieldLabel, tooltip, unit, ...restProps } = props;
 
   let marks: any[] = [];
   if (restProps.max) {
@@ -25,7 +25,7 @@ const Slider = (props: SliderProps) => {
       <HStack justify="space-between">
         <ChakraSlider.Label>
           <HStack>
-            <Tooltip.Info content={tooltip} /> {displayLabel}
+            <Tooltip.Info content={tooltip} /> {fieldLabel}
           </HStack>
         </ChakraSlider.Label>
         <HStack gap={0} color="fg.subtle">

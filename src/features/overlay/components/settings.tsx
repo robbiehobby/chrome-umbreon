@@ -56,14 +56,14 @@ export default function Settings() {
     <Container asChild gap={4} w={400} pt={4} px={0}>
       <Stack>
         <Switch
-          displayLabel={!settings.website.on ? chromeApi.getMessage("on") : chromeApi.getMessage("off")}
+          fieldLabel={!settings.website.on ? chromeApi.getMessage("on") : chromeApi.getMessage("off")}
           tooltip={disabled ? chromeApi.getMessage("onDisabledHelp") : chromeApi.getMessage("onHelp")}
           checked={settings.website.on}
           onCheckedChange={(details) => onChange("setOn", details)}
           disabled={disabled}
         />
         <Switch
-          displayLabel={chromeApi.getMessage("global")}
+          fieldLabel={chromeApi.getMessage("global")}
           tooltip={chromeApi.getMessage("globalHelp")}
           checked={settings.website.mode === "global"}
           onCheckedChange={(details) => onChange("setMode", details)}
@@ -87,7 +87,7 @@ export default function Settings() {
           onValueChange={(details) => onChange("setBlend", details)}
         />
         <Slider
-          displayLabel={chromeApi.getMessage("opacity")}
+          fieldLabel={chromeApi.getMessage("opacity")}
           tooltip={chromeApi.getMessage("opacityHelp")}
           unit="%"
           step={0.5}
@@ -101,7 +101,7 @@ export default function Settings() {
         {render.seperator}
 
         <Color
-          displayLabel={chromeApi.getMessage("color")}
+          fieldLabel={chromeApi.getMessage("color")}
           hex={mode.overlay.color}
           onValueChange={(details) => onChange("setColor", details)}
         />

@@ -1,20 +1,20 @@
 import { memo, ReactNode } from "react";
 import { ColorPicker, InputGroup, parseColor, Stack, VisuallyHidden } from "@chakra-ui/react";
 
-interface ColorPickerProps extends ColorPicker.RootProps {
-  displayLabel: string | ReactNode;
+interface ColorProps extends ColorPicker.RootProps {
+  fieldLabel: string | ReactNode;
   hex: string;
 }
 
-const Color = (props: ColorPickerProps) => {
-  const { displayLabel, hex, ...restProps } = props;
+const Color = (props: ColorProps) => {
+  const { fieldLabel, hex, ...restProps } = props;
 
   if (hex) restProps.value = parseColor(hex);
 
   return (
     <ColorPicker.Root format="hsla" gap={0} px={4} open {...restProps}>
       <VisuallyHidden asChild>
-        <ColorPicker.Label>{displayLabel}</ColorPicker.Label>
+        <ColorPicker.Label>{fieldLabel}</ColorPicker.Label>
       </VisuallyHidden>
 
       <ColorPicker.Control>

@@ -4,19 +4,19 @@ import { Check, X } from "lucide-react";
 import Tooltip from "./Tooltip.tsx";
 
 interface SwitchProps extends ChakraSwitch.RootProps {
-  displayLabel: string | ReactNode;
+  fieldLabel: string | ReactNode;
   tooltip: string;
 }
 
 const Switch = (props: SwitchProps) => {
-  const { displayLabel, tooltip, ...restProps } = props;
+  const { fieldLabel, tooltip, ...restProps } = props;
 
   return (
     <Group display="flex" px={4}>
       <Tooltip.Info content={tooltip} />
 
       <ChakraSwitch.Root display="flex" justifyContent="space-between" flexGrow={1} {...restProps}>
-        <ChakraSwitch.Label>{displayLabel}</ChakraSwitch.Label>
+        <ChakraSwitch.Label>{fieldLabel}</ChakraSwitch.Label>
 
         <ChakraSwitch.Control>
           <ChakraSwitch.Thumb>

@@ -1,17 +1,19 @@
 import { Button, Container, Group, Separator, Stack } from "@chakra-ui/react";
 import { memo, useEffect, useReducer } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
-import chromeApi, { defaultSettings } from "../apis/chrome.ts";
-import pageReducer from "./page-handler.ts";
-import Form from "../components/form/bundle.ts";
-import getMessage from "../i18n.ts";
+import ColorPicker from "../../../components/ColorPicker.tsx";
+import Select from "../../../components/Select.tsx";
+import Slider from "../../../components/Slider.tsx";
+import Switch from "../../../components/Switch.tsx";
+import chromeApi, { defaultSettings } from "../api/chrome.ts";
+import settingsReducer from "./settings-handler.ts";
 
 const render = {
   seperator: <Separator size="xs" />,
 };
 
-export default function App() {
-  const [state, dispatch] = useReducer(pageReducer, { settings: structuredClone(defaultSettings) });
+export default function Settings() {
+  const [state, dispatch] = useReducer(settingsReducer, { settings: structuredClone(defaultSettings) });
   const { settings } = state;
   const disabled = settings.website.hostname === "*";
 
@@ -32,17 +34,17 @@ export default function App() {
           colorPalette="orange"
           size="sm"
           variant="outline"
-          onClick={() => window.confirm(getMessage("resetWebsiteConfirm")) && onChange("resetWebsite", {})}
+          onClick={() => window.confirm(chromeApi.getMessage("resetWebsiteConfirm")) && onChange("resetWebsite", {})}
         >
-          <TriangleAlert /> {getMessage("resetWebsite")}
+          <TriangleAlert /> {chromeApi.getMessage("resetWebsite")}
         </Button>
         <Button
           colorPalette="orange"
           size="sm"
           variant="outline"
-          onClick={() => window.confirm(getMessage("resetAllConfirm")) && onChange("resetAll", {})}
+          onClick={() => window.confirm(chromeApi.getMessage("resetAllConfirm")) && onChange("resetAll", {})}
         >
-          <Zap /> {getMessage("resetAll")}
+          <Zap /> {chromeApi.getMessage("resetAll")}
         </Button>
       </Group>
     ),
@@ -52,17 +54,16 @@ export default function App() {
   return (
     <Container asChild gap={4} w={400} pt={4} px={0}>
       <Stack>
-        <Form.Switch
-          displayLabel={!settings.website.on ? getMessage("on") : getMessage("off")}
-          tooltip={disabled ? getMessage("onDisabledHelp") : getMessage("onHelp")}
+        <Switch
+          displayLabel={!settings.website.on ? chromeApi.getMessage("on") : chromeApi.getMessage("off")}
+          tooltip={disabled ? chromeApi.getMessage("onDisabledHelp") : chromeApi.getMessage("onHelp")}
           checked={settings.website.on}
           onCheckedChange={(details) => onChange("setOn", details)}
           disabled={disabled}
         />
-
-        <Form.Switch
-          displayLabel={getMessage("global")}
-          tooltip={getMessage("globalHelp")}
+        <Switch
+          displayLabel={chromeApi.getMessage("global")}
+          tooltip={chromeApi.getMessage("globalHelp")}
           checked={settings.website.mode === "global"}
           onCheckedChange={(details) => onChange("setMode", details)}
           disabled={disabled}
@@ -70,7 +71,7 @@ export default function App() {
 
         {render.seperator}
 
-        <Form.Select
+        <Select
           options={{
             normal: "Normal",
             multiply: "Multiply",
@@ -80,9 +81,9 @@ export default function App() {
           defaultValue={settings[settings.website.mode].overlay.blend}
           onChange={(event) => onChange("setBlend", event.target)}
         />
-        <Form.Slider
-          displayLabel={getMessage("opacity")}
-          tooltip={getMessage("opacityHelp")}
+        <Slider
+          displayLabel={chromeApi.getMessage("opacity")}
+          tooltip={chromeApi.getMessage("opacityHelp")}
           unit="%"
           step={0.5}
           min={0}
@@ -94,8 +95,8 @@ export default function App() {
 
         {render.seperator}
 
-        <Form.ColorPicker
-          displayLabel={getMessage("color")}
+        <ColorPicker
+          displayLabel={chromeApi.getMessage("color")}
           hex={settings[settings.website.mode].overlay.color}
           onValueChange={(details) => onChange("setColor", details)}
         />

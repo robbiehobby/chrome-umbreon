@@ -1,6 +1,6 @@
 import { createSystem, defaultConfig } from "@chakra-ui/react";
 
-const system = createSystem(defaultConfig, {
+const themeSystem = createSystem(defaultConfig, {
   globalCss: {
     "html, body": {
       bg: "{colors.bg.subtle}",
@@ -17,4 +17,4 @@ const system = createSystem(defaultConfig, {
   },
 });
 
-export default system;
+export default themeSystem;

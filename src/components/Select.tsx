@@ -5,13 +5,13 @@ interface SelectProps extends NativeSelect.RootProps {
   options: { [key: string]: string };
 }
 
-const FormSelect = (props: SelectProps) => {
+const Select = (props: SelectProps) => {
   const { options, defaultValue, ...restProps } = props;
 
   return (
     <Box px={4}>
       <NativeSelect.Root {...restProps}>
-        <NativeSelect.Field value={defaultValue}>
+        <NativeSelect.Field defaultValue={defaultValue}>
           {Object.entries(options).map(([value, title]) => (
             <option key={value} value={value}>
               {title}
@@ -24,6 +24,6 @@ const FormSelect = (props: SelectProps) => {
   );
 };
 
-export default memo(FormSelect, (prevProps, nextProps) => {
+export default memo(Select, (prevProps, nextProps) => {
   return prevProps.defaultValue === nextProps.defaultValue;
 });

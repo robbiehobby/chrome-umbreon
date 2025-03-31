@@ -1,5 +1,5 @@
 import { ColorPickerValueChangeDetails, SliderValueChangeDetails, SwitchCheckedChangeDetails } from "@chakra-ui/react";
-import chromeApi, { defaultSettings } from "../apis/chrome.ts";
+import chromeApi, { defaultSettings } from "../api/chrome.ts";
 
 type Action = { type: string; details: any; dispatch?: (action: Action) => void };
 
@@ -42,7 +42,7 @@ handler.resetAll = (state: State) => {
   state.settings = settings;
 };
 
-export default function pageReducer(prevState: State, action: Action) {
+export default function settingsReducer(prevState: State, action: Action) {
   const state = { ...prevState };
   if (handler[action.type]) handler[action.type](state, action.details);
   chromeApi.saveSettings(state.settings, action.type === "resetAll");

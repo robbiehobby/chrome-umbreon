@@ -1,4 +1,4 @@
-import { defaultSettings } from "../apis/chrome.ts";
+import { defaultSettings } from "../api/chrome.ts";
 
 async function updateTabs(settings: Settings, type: UpdateType = null) {
   if (type !== "reset" && settings.website.hostname === "*") return;

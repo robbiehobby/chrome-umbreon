@@ -21,9 +21,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: "./index.html",
-        chrome: "./src/apis/chrome.ts",
-        background: "./src/app/background.ts",
-        content: "./src/app/content.ts",
+        chrome: "./src/features/overlay/api/chrome.ts",
+        background: "./src/features/overlay/extension/background.ts",
+        content: "./src/features/overlay/extension/content.ts",
       },
       output: {
         entryFileNames: "assets/[name].js",

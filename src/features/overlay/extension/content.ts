@@ -43,8 +43,8 @@
   }
   if (!overlay) create();
 
-  chrome.runtime.onMessage.addListener((message, sender) => {
-    if (sender.id === chrome.runtime.id && message.action === "update") {
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.action === "update") {
       localStorage.setItem("umbra-overlay", JSON.stringify(message.payload.settings));
       update(message.payload.settings, message.payload.type);
     }

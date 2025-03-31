@@ -18,7 +18,10 @@
   },
   "commands": {
     "activate": {
-      "description": "__MSG_commandName__"
+      "description": "__MSG_activateCommand__"
+    },
+    "global": {
+      "description": "__MSG_globalCommand__"
     }
   },
   "content_security_policy": {

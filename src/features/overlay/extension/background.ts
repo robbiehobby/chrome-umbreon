@@ -57,9 +57,7 @@ async function saveSettings(newSettings: Settings) {
   await updateTabs(newSettings);
 }
 
-chrome.runtime.onMessage.addListener((message, sender, response) => {
-  if (sender.id !== chrome.runtime.id) return;
-
+chrome.runtime.onMessage.addListener((message, _sender, response) => {
   switch (message.type) {
     case "getSettings":
       getSettings().then((settings) => response(settings));
@@ -77,12 +75,19 @@ chrome.runtime.onMessage.addListener((message, sender, response) => {
 
 // Watch for the toggle command to be activated.
 chrome.commands.onCommand.addListener(async (command) => {
-  if (command !== "activate") return;
   const settings = await getSettings();
-  if (settings) {
-    settings.website.on = !settings.website.on;
-    await saveSettings(settings);
+
+  switch (command) {
+    case "activate":
+      settings.website.on = !settings.website.on;
+      break;
+
+    case "global":
+      settings.website.mode = settings.website.mode === "global" ? "website" : "global";
+      break;
   }
+
+  await saveSettings(settings);
 });
 
 // Watch for changes in tabs.

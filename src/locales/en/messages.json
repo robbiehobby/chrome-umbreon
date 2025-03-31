@@ -5,8 +5,11 @@
   "description": {
     "message": "Chromium extension designed to change the tone of websites."
   },
-  "commandName": {
-    "message": "Toggle Screen Overlay"
+  "activateCommand": {
+    "message": "Toggle overlay"
+  },
+  "globalCommand": {
+    "message": "Toggle global settings"
   },
   "on": {
     "message": "Activate"

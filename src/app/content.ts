@@ -9,7 +9,7 @@ import { defaultSettings } from "../hooks/chrome.ts";
     try {
       localSettings = JSON.parse(localStorage.getItem("screen-dimmer") || "");
       localMode = localSettings?.website.mode;
-    } catch (_e) {}
+    } catch (_error) {}
 
     overlay = document.createElement("screen-dimmer") as HTMLElement;
     overlay.style.position = "fixed";

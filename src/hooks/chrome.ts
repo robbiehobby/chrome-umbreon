@@ -20,7 +20,7 @@ export default function useChrome() {
   const getSettings = async () => {
     try {
       return await chrome.runtime.sendMessage({ type: "getSettings" });
-    } catch (_e) {
+    } catch (_error) {
       return structuredClone(defaultSettings);
     }
   };
@@ -28,13 +28,13 @@ export default function useChrome() {
   const saveSettings = async (settings: typeof defaultSettings) => {
     try {
       await chrome.runtime.sendMessage({ type: "saveSettings", payload: settings });
-    } catch (_e) {}
+    } catch (_error) {}
   };
 
   const resetSettings = async (type: string) => {
     try {
       await chrome.runtime.sendMessage({ type: "resetSettings", payload: type });
-    } catch (_e) {}
+    } catch (_error) {}
   };
 
   return { getSettings, saveSettings, resetSettings };

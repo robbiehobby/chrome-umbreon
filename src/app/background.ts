@@ -9,7 +9,7 @@ async function updateTabs(settings: typeof defaultSettings) {
       if (!tab.id) return;
       try {
         await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ["assets/content.js"] });
-      } catch (_e) {}
+      } catch (_error) {}
     }),
   );
 }
@@ -28,7 +28,7 @@ async function getSettings() {
       target: { tabId: tabs[0].id },
       func: () => true,
     });
-  } catch (_e) {
+  } catch (_error) {
     return settings;
   }
 

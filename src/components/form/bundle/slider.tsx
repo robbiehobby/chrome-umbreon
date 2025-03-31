@@ -38,7 +38,7 @@ const FormSlider = (props: SliderProps) => {
           <Slider.Range />
         </Slider.Track>
         <Slider.Thumbs />
-        {marks.length && <Slider.Marks marks={marks} mb="0" />}
+        {marks.length && <Slider.Marks marks={marks} mb={0} />}
       </Slider.Control>
     </Slider.Root>
   );

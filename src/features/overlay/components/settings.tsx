@@ -79,7 +79,7 @@ export default function Settings() {
             luminosity: "Luminosity",
           }}
           defaultValue={settings[settings.website.mode].overlay.blend}
-          onChange={(event) => onChange("setBlend", event.target)}
+          onValueChange={(event) => onChange("setBlend", event.target)}
         />
         <Slider
           displayLabel={chromeApi.getMessage("opacity")}

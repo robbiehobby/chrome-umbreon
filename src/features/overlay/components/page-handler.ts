@@ -47,7 +47,7 @@ handler.resetAll = (state: State) => {
   state.settings = settings;
 };
 
-export default function settingsReducer(prevState: State, action: Action) {
+export default function pageReducer(prevState: State, action: Action) {
   const state = { ...prevState };
   if (handler[action.type]) handler[action.type](state, action.details);
   chromeApi.saveSettings(state.settings, action.type === "resetAll");

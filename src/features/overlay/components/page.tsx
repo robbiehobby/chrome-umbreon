@@ -1,19 +1,19 @@
 import { Button, Container, createListCollection, Group, Separator, Stack } from "@chakra-ui/react";
 import { memo, useEffect, useReducer } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
-import Color from "../../../components/Color.tsx";
+import ColorPicker from "../../../components/ColorPicker.tsx";
 import Select from "../../../components/Select.tsx";
 import Slider from "../../../components/Slider.tsx";
 import Switch from "../../../components/Switch.tsx";
 import chromeApi, { defaultSettings } from "../api/chrome.ts";
-import settingsReducer from "./settings-handler.ts";
+import pageReducer from "./page-handler.ts";
 
 const render = {
   seperator: <Separator size="xs" />,
 };
 
-export default function Settings() {
-  const [state, dispatch] = useReducer(settingsReducer, { settings: structuredClone(defaultSettings) });
+export default function Page() {
+  const [state, dispatch] = useReducer(pageReducer, { settings: structuredClone(defaultSettings) });
   const { settings } = state;
   const mode = settings[settings.website.mode];
   const disabled = settings.website.hostname === "*";
@@ -100,7 +100,7 @@ export default function Settings() {
 
         {render.seperator}
 
-        <Color
+        <ColorPicker
           fieldLabel={chromeApi.getMessage("color")}
           hex={mode.overlay.color}
           onValueChange={(details) => onChange("setColor", details)}

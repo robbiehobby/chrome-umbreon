@@ -1,6 +1,6 @@
-import { defaultSettings } from "../hooks/chrome.ts";
+import { defaultSettings } from "../apis/chrome.ts";
 
-async function updateTabs(settings: typeof defaultSettings) {
+async function updateTabs(settings: Settings) {
   const tabs = await chrome.tabs.query({ url: `*://${settings.website.hostname}/*` });
   if (!tabs) return;
 
@@ -41,10 +41,11 @@ async function getSettings() {
   return settings;
 }
 
-async function saveSettings(newSettings: typeof defaultSettings) {
+async function saveSettings(newSettings: Settings) {
   if (newSettings.website.hostname === "*" || newSettings.website.mode === "global") {
     await chrome.storage.local.set({ _global: newSettings.global });
   }
+
   // Do not save website settings for tabs that cannot run content scripts.
   if (newSettings.website.hostname === "*") return;
 

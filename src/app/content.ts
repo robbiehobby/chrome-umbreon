@@ -1,10 +1,8 @@
-import { defaultSettings } from "../hooks/chrome.ts";
-
 (function () {
   let overlay: HTMLElement | null = document.querySelector("screen-dimmer");
 
   if (!overlay) {
-    let localSettings: typeof defaultSettings | undefined;
+    let localSettings: Settings | undefined;
     let localMode;
     try {
       localSettings = JSON.parse(localStorage.getItem("screen-dimmer") || "");
@@ -28,7 +26,7 @@ import { defaultSettings } from "../hooks/chrome.ts";
     document.documentElement.appendChild(overlay);
   }
 
-  function init(settings: typeof defaultSettings) {
+  function init(settings: Settings) {
     if (!overlay || !settings) return;
     const { mode } = settings.website;
 
@@ -47,5 +45,5 @@ import { defaultSettings } from "../hooks/chrome.ts";
     localStorage.setItem("screen-dimmer", JSON.stringify(settings));
   }
 
-  chrome.runtime.sendMessage({ type: "getSettings" }, (settings: typeof defaultSettings) => init(settings));
+  chrome.runtime.sendMessage({ type: "getSettings" }, (settings: Settings) => init(settings));
 })();

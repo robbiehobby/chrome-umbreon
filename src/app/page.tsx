@@ -1,31 +1,28 @@
 import { Box, Button, Container, Group, HStack, parseColor, Span } from "@chakra-ui/react";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
-import useChrome, { defaultSettings } from "../hooks/chrome.ts";
-import pageHandler from "./page-handler.ts";
-import getMessage from "../i18n.ts";
+import chromeApi, { defaultSettings } from "../apis/chrome.ts";
+import pageReducer from "./page-handler.ts";
 import Form from "../components/form/bundle.ts";
 import Ui from "../components/ui/bundle.ts";
-
-export interface PageState {
-  settings: typeof defaultSettings;
-  setSettings: SetStateAction<any>;
-}
+import getMessage from "../i18n.ts";
 
 export default function App() {
   const [disabled, setDisabled] = useState(false);
-  const [settings, setSettings] = useState(defaultSettings);
-  const state: PageState = { settings, setSettings };
+  const [state, dispatch] = useReducer(pageReducer, { settings: structuredClone(defaultSettings) });
+  const { settings } = state;
+
+  useEffect(() => setDisabled(settings.website.hostname === "*"), [settings.website.hostname]);
 
   useEffect(() => {
-    useChrome()
-      .getSettings()
-      .then((settings) => {
-        setSettings(settings);
-        if (settings.website.hostname === "*") setDisabled(true);
-      });
-    return () => {};
+    (async () => {
+      dispatch({ type: "loadSettings", details: await chromeApi.getSettings(), dispatch });
+    })();
   }, []);
+
+  const onChange = (type: string, details: any) => {
+    dispatch({ type, details, dispatch });
+  };
 
   return (
     <Container w={400} p={4}>
@@ -43,7 +40,7 @@ export default function App() {
         border="subtle"
         rounded="sm"
         checked={settings.website.on}
-        onCheckedChange={(details) => pageHandler.on(details, state)}
+        onCheckedChange={(details) => onChange("setOn", details)}
         disabled={disabled}
       />
 
@@ -58,7 +55,7 @@ export default function App() {
         border="subtle"
         rounded="sm"
         checked={settings.website.mode === "global"}
-        onCheckedChange={(details) => pageHandler.mode(details, state)}
+        onCheckedChange={(details) => onChange("setMode", details)}
         disabled={disabled}
       />
 
@@ -77,7 +74,7 @@ export default function App() {
           size="sm"
           mb={-1}
           value={[settings[settings.website.mode].overlay.opacity * 100]}
-          onValueChange={(details) => pageHandler.opacity(details, state)}
+          onValueChange={(details) => onChange("setOpacity", details)}
         />
       </Box>
 
@@ -85,17 +82,27 @@ export default function App() {
         displayLabel={getMessage("color")}
         mb={3}
         value={parseColor(settings[settings.website.mode].overlay.color)}
-        onValueChange={(details) => pageHandler.color(details, state)}
+        onValueChange={(details) => onChange("setColor", details)}
       />
 
       <Group attached grow gap={3}>
-        <Button colorPalette="gray" size="sm" variant="outline" onClick={() => pageHandler.resetWebsite(state)}>
+        <Button
+          colorPalette="gray"
+          size="sm"
+          variant="outline"
+          onClick={() => window.confirm(getMessage("resetWebsiteConfirm")) && onChange("resetWebsite", {})}
+        >
           <Span color="fg.warning">
             <TriangleAlert />
           </Span>
           {getMessage("resetWebsite")}
         </Button>
-        <Button colorPalette="gray" size="sm" variant="outline" onClick={() => pageHandler.resetAll(state)}>
+        <Button
+          colorPalette="gray"
+          size="sm"
+          variant="outline"
+          onClick={() => window.confirm(getMessage("resetAllConfirm")) && onChange("resetAll", {})}
+        >
           <Span color="fg.error">
             <Zap />
           </Span>

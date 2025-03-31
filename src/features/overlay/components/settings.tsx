@@ -1,7 +1,7 @@
 import { Button, Container, Group, Separator, Stack } from "@chakra-ui/react";
 import { memo, useEffect, useReducer } from "react";
 import { TriangleAlert, Zap } from "lucide-react";
-import ColorPicker from "../../../components/ColorPicker.tsx";
+import Color from "../../../components/Color.tsx";
 import Select from "../../../components/Select.tsx";
 import Slider from "../../../components/Slider.tsx";
 import Switch from "../../../components/Switch.tsx";
@@ -95,7 +95,7 @@ export default function Settings() {
 
         {render.seperator}
 
-        <ColorPicker
+        <Color
           displayLabel={chromeApi.getMessage("color")}
           hex={settings[settings.website.mode].overlay.color}
           onValueChange={(details) => onChange("setColor", details)}

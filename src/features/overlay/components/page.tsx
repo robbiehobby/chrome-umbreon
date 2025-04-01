@@ -30,7 +30,7 @@ export default function Page() {
 
   const ResetButtons = memo(
     () => (
-      <Group attached grow gap={4} px={4} pb={4}>
+      <Group attached grow gap={4} px={5} pb={4}>
         <Button
           colorPalette="orange"
           size="sm"
@@ -58,6 +58,7 @@ export default function Page() {
         <Switch
           fieldLabel={!settings.website.on ? chromeApi.getMessage("on") : chromeApi.getMessage("off")}
           tooltip={disabled ? chromeApi.getMessage("onDisabledHelp") : chromeApi.getMessage("onHelp")}
+          px={5}
           checked={settings.website.on}
           onCheckedChange={(details) => onChange("setOn", details)}
           disabled={disabled}
@@ -65,6 +66,7 @@ export default function Page() {
         <Switch
           fieldLabel={chromeApi.getMessage("global")}
           tooltip={chromeApi.getMessage("globalHelp")}
+          px={5}
           checked={settings.website.mode === "global"}
           onCheckedChange={(details) => onChange("setMode", details)}
           disabled={disabled}
@@ -82,6 +84,7 @@ export default function Page() {
               { value: "luminosity", label: "Luminosity" },
             ],
           })}
+          px={5}
           value={[mode.overlay.blend]}
           defaultValue={[mode.overlay.blend]}
           onValueChange={(details) => onChange("setBlend", details)}
@@ -94,6 +97,8 @@ export default function Page() {
           min={0}
           max={100}
           size="sm"
+          px={5}
+          mb={-4}
           value={[mode.overlay.opacity * 100]}
           onValueChange={(details) => onChange("setOpacity", details)}
         />
@@ -102,6 +107,7 @@ export default function Page() {
 
         <ColorPicker
           fieldLabel={chromeApi.getMessage("color")}
+          px={5}
           hex={mode.overlay.color}
           onValueChange={(details) => onChange("setColor", details)}
         />

@@ -9,7 +9,7 @@ const Select = (props: SelectProps) => {
   const { fieldLabel, ...restProps } = props;
 
   return (
-    <ChakraSelect.Root px={4} zIndex={2000} {...restProps}>
+    <ChakraSelect.Root zIndex={1001} {...restProps}>
       <VisuallyHidden asChild>
         <ChakraSelect.Label>{fieldLabel}</ChakraSelect.Label>
       </VisuallyHidden>

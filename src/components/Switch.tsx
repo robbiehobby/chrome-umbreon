@@ -1,5 +1,5 @@
 import { memo, ReactNode } from "react";
-import { Group, Switch as ChakraSwitch } from "@chakra-ui/react";
+import { HStack, Switch as ChakraSwitch } from "@chakra-ui/react";
 import { Check, X } from "lucide-react";
 import Tooltip from "./Tooltip.tsx";
 
@@ -12,23 +12,22 @@ const Switch = (props: SwitchProps) => {
   const { fieldLabel, tooltip, ...restProps } = props;
 
   return (
-    <Group display="flex" px={4}>
-      <Tooltip.Info content={tooltip} />
-
-      <ChakraSwitch.Root display="flex" justifyContent="space-between" flexGrow={1} {...restProps}>
+    <ChakraSwitch.Root display="flex" justifyContent="space-between" flexGrow={1} {...restProps}>
+      <HStack>
+        <Tooltip.Info content={tooltip} />
         <ChakraSwitch.Label>{fieldLabel}</ChakraSwitch.Label>
+      </HStack>
 
-        <ChakraSwitch.Control>
-          <ChakraSwitch.Thumb>
-            <ChakraSwitch.ThumbIndicator fallback={<X size={12} color="black" />}>
-              <Check size={12} color="black" />
-            </ChakraSwitch.ThumbIndicator>
-          </ChakraSwitch.Thumb>
-        </ChakraSwitch.Control>
+      <ChakraSwitch.Control>
+        <ChakraSwitch.Thumb>
+          <ChakraSwitch.ThumbIndicator fallback={<X size={12} color="black" />}>
+            <Check size={12} color="black" />
+          </ChakraSwitch.ThumbIndicator>
+        </ChakraSwitch.Thumb>
+      </ChakraSwitch.Control>
 
-        <ChakraSwitch.HiddenInput />
-      </ChakraSwitch.Root>
-    </Group>
+      <ChakraSwitch.HiddenInput />
+    </ChakraSwitch.Root>
   );
 };
 

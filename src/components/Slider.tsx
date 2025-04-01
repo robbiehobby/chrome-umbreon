@@ -21,7 +21,7 @@ const Slider = (props: SliderProps) => {
   }
 
   return (
-    <ChakraSlider.Root gap="md" px={4} mb={-4} {...restProps}>
+    <ChakraSlider.Root gap="md" {...restProps}>
       <HStack justify="space-between">
         <ChakraSlider.Label>
           <HStack>

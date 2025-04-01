@@ -12,7 +12,7 @@ const ColorPicker = (props: ColorPickerProps) => {
   if (hex) restProps.value = parseColor(hex);
 
   return (
-    <ChakraColorPicker.Root format="hsla" gap={0} px={4} open {...restProps}>
+    <ChakraColorPicker.Root format="hsla" gap={0} open {...restProps}>
       <VisuallyHidden asChild>
         <ChakraColorPicker.Label>{fieldLabel}</ChakraColorPicker.Label>
       </VisuallyHidden>

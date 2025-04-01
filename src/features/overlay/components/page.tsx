@@ -78,10 +78,15 @@ export default function Page() {
           fieldLabel="Blend Mode"
           collection={createListCollection({
             items: [
-              { value: "normal", label: "Normal" },
-              { value: "multiply", label: "Multiply" },
+              { value: "color-burn", label: "Color Burn" },
               { value: "darken", label: "Darken" },
+              { value: "difference", label: "Difference" },
+              { value: "exclusion", label: "Exclusion" },
+              { value: "hard-light", label: "Hard Light" },
               { value: "luminosity", label: "Luminosity" },
+              { value: "multiply", label: "Multiply" },
+              { value: "normal", label: "Normal" },
+              { value: "saturation", label: "Saturation" },
             ],
           })}
           px={5}

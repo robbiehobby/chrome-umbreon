@@ -33,7 +33,7 @@
     "message": "Intensity"
   },
   "opacityHelp": {
-    "message": "Adjust the intensity of the screen overlay. Use the selector above to change the blend mode."
+    "message": "Adjust the intensity of the screen overlay. Use the selector above to change the blending mode."
   },
   "color": {
     "message": "Color"

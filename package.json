@@ -9,20 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.13.0",
-    "lucide-react": "^0.483.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "@chakra-ui/react": "^3.16.1",
+    "lucide-react": "^0.503.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.310",
-    "@types/node": "^22.13.11",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@types/chrome": "^0.0.316",
+    "@types/node": "^22.14.1",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@vitejs/plugin-react": "^4.4.1",
     "globals": "^16.0.0",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.2",
-    "vite-plugin-static-copy": "^2.3.0"
+    "typescript": "^5.8.3",
+    "vite": "^6.3.2",
+    "vite-plugin-static-copy": "^2.3.1"
   }
 }

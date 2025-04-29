@@ -1,37 +1,31 @@
-import {
-  ColorPickerValueChangeDetails,
-  SelectValueChangeDetails,
-  SliderValueChangeDetails,
-  SwitchCheckedChangeDetails,
-} from "@chakra-ui/react";
 import chromeApi, { defaultSettings } from "../api/chrome.ts";
 
-type Action = { type: string; details: any; dispatch?: (action: Action) => void };
+type Action = { type: string; value: any; dispatch?: (action: Action) => void };
 
 const handler: { [key: string]: Function } = {};
 
-handler.loadSettings = async (state: State, details: Settings) => {
-  state.settings = { ...details };
+handler.loadSettings = async (state: State, value: Settings) => {
+  state.settings = { ...value };
 };
 
-handler.setOn = (state: State, details: SwitchCheckedChangeDetails) => {
-  state.settings.website.on = details.checked;
+handler.setOn = (state: State, value: any) => {
+  state.settings.website.on = value;
 };
 
-handler.setMode = (state: State, details: SwitchCheckedChangeDetails) => {
-  state.settings.website.mode = details.checked ? "global" : "website";
+handler.setMode = (state: State, value: any) => {
+  state.settings.website.mode = value ? "global" : "website";
 };
 
-handler.setOpacity = (state: State, details: SliderValueChangeDetails) => {
-  state.settings[state.settings.website.mode].overlay.opacity = details.value[0] / 100;
+handler.setOpacity = (state: State, value: any) => {
+  state.settings[state.settings.website.mode].overlay.opacity = value[0] / 100;
 };
 
-handler.setBlend = (state: State, details: SelectValueChangeDetails) => {
-  state.settings[state.settings.website.mode].overlay.blend = String(details.value[0]);
+handler.setBlend = (state: State, value: any) => {
+  state.settings[state.settings.website.mode].overlay.blend = value;
 };
 
-handler.setColor = (state: State, details: ColorPickerValueChangeDetails) => {
-  state.settings[state.settings.website.mode].overlay.color = details.value.toString("rgb");
+handler.setColor = (state: State, value: any) => {
+  state.settings[state.settings.website.mode].overlay.color = value;
 };
 
 handler.resetWebsite = (state: State) => {
@@ -49,7 +43,7 @@ handler.resetAll = (state: State) => {
 
 export default function pageReducer(prevState: State, action: Action) {
   const state = { ...prevState };
-  if (handler[action.type]) handler[action.type](state, action.details);
+  if (handler[action.type]) handler[action.type](state, action.value);
   chromeApi.saveSettings(state.settings, action.type === "resetAll");
   return state;
 }

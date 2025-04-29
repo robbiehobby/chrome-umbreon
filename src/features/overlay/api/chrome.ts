@@ -40,3 +40,17 @@ chromeApi.saveSettings = async (settings: Settings, reset = false) => {
     else await chrome.runtime.sendMessage({ type: "saveSettings", payload: settings });
   } catch (_error) {}
 };
+
+chromeApi.getShortcut = async () => {
+  try {
+    return await chrome.runtime.sendMessage({ type: "getShortcut" });
+  } catch (_error) {
+    return "";
+  }
+};
+
+chromeApi.openShortcuts = () => {
+  try {
+    chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
+  } catch (_error) {}
+};

@@ -1,9 +1,9 @@
 {
   "name": {
-    "message": "Umbra"
+    "message": "Umbreon"
   },
   "description": {
-    "message": "Chromium extension designed to change the tone of websites."
+    "message": "Chrome extension that changes the tone of websites using an overlay."
   },
   "activateCommand": {
     "message": "Toggle the overlay"
@@ -11,29 +11,74 @@
   "globalCommand": {
     "message": "Toggle the global settings"
   },
+  "shortcutAssigned": {
+    "message": "Keyboard shortcut assigned!"
+  },
+  "shortcutUnassigned": {
+    "message": "Keyboard shortcut not assigned."
+  },
+  "shortcutHelp": {
+    "message": "Assign a keyboard shortcut to activate the extension for the current website."
+  },
+  "shortcutAssign": {
+    "message": "Assign"
+  },
   "on": {
     "message": "Activate"
+  },
+  "onHelp": {
+    "message": "Turn on the overlay for the current website."
+  },
+  "onDisabledHelp": {
+    "message": "Due to browser limitations, this website cannot support an overlay."
   },
   "off": {
     "message": "Deactivate"
   },
-  "onHelp": {
-    "message": "Activate or deactivate the overlay for this website."
-  },
-  "onDisabledHelp": {
-    "message": "Unfortunately, due to browser limitations, this website cannot have an overlay."
+  "offHelp": {
+    "message": "Turn off the overlay for the current website."
   },
   "global": {
     "message": "Use global settings"
   },
   "globalHelp": {
-    "message": "Use global settings that apply to all websites with this option enabled."
+    "message": "When enabled, the shared global settings are applied."
   },
   "opacity": {
     "message": "Intensity"
   },
   "opacityHelp": {
-    "message": "Adjust the intensity of the screen overlay. Use the selector above to change the blending mode."
+    "message": "Change the intensity of the overlay. Use the selector above to adjust how the overlay blends with the website."
+  },
+  "blend": {
+    "message": "Blending Mode"
+  },
+  "blendColorBurn": {
+    "message": "Color Burn"
+  },
+  "blendDarken": {
+    "message": "Darken"
+  },
+  "blendDifference": {
+    "message": "Difference"
+  },
+  "blendExclusion": {
+    "message": "Exclusion"
+  },
+  "blendHardLight": {
+    "message": "Hard Light"
+  },
+  "blendLuminosity": {
+    "message": "Luminosity"
+  },
+  "blendMultiply": {
+    "message": "Multiply"
+  },
+  "blendNormal": {
+    "message": "Normal"
+  },
+  "blendSaturation": {
+    "message": "Saturation"
   },
   "color": {
     "message": "Color"

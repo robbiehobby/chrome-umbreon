@@ -1,5 +1,5 @@
 (function () {
-  let overlay: HTMLElement | null = document.querySelector("umbra-overlay");
+  let overlay: HTMLElement | null = document.querySelector("umbreon-overlay");
 
   function update(settings: Settings, type: UpdateType = null) {
     if (!overlay) return;
@@ -20,7 +20,7 @@
   }
 
   async function create() {
-    overlay = document.createElement("umbra-overlay") as HTMLElement;
+    overlay = document.createElement("umbreon-overlay") as HTMLElement;
     overlay.style.position = "fixed";
     overlay.style.zIndex = "2147483647";
     overlay.style.inset = "0";
@@ -34,7 +34,7 @@
     // Try to load the settings from local storage first.
     let settings: Settings | null = null;
     try {
-      settings = JSON.parse(localStorage.getItem("umbra-overlay") || "");
+      settings = JSON.parse(localStorage.getItem("umbreon-overlay") || "");
     } catch (_error) {}
     if (!settings) {
       settings = await chrome.runtime.sendMessage({ type: "getSettings" });
@@ -45,7 +45,7 @@
 
   chrome.runtime.onMessage.addListener((message) => {
     if (message.action === "update") {
-      localStorage.setItem("umbra-overlay", JSON.stringify(message.payload.settings));
+      localStorage.setItem("umbreon-overlay", JSON.stringify(message.payload.settings));
       update(message.payload.settings, message.payload.type);
     }
   });

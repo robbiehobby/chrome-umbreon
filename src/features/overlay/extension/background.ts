@@ -57,6 +57,10 @@ async function saveSettings(newSettings: Settings) {
   await updateTabs(newSettings);
 }
 
+async function getShortcut() {
+  return (await chrome.commands.getAll())[1].shortcut;
+}
+
 chrome.runtime.onMessage.addListener((message, _sender, response) => {
   switch (message.type) {
     case "getSettings":
@@ -70,6 +74,10 @@ chrome.runtime.onMessage.addListener((message, _sender, response) => {
     case "resetSettings":
       chrome.storage.local.clear().then(() => updateTabs(defaultSettings, "reset"));
       break;
+
+    case "getShortcut":
+      getShortcut().then((shortcut) => response(shortcut));
+      return true;
   }
 });
 

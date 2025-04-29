@@ -3,7 +3,7 @@
     "message": "Umbreon"
   },
   "description": {
-    "message": "Chrome extension that changes the tone of websites using an overlay."
+    "message": "Change the tone of websites with a customizable overlay."
   },
   "activateCommand": {
     "message": "Toggle the overlay"

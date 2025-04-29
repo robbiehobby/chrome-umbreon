@@ -1,6 +1,6 @@
 ## Chrome Umbreon Extension
 
-Chrome extension that changes the tone of websites using an overlay.
+Change the tone of websites with a customizable overlay.
 
 <br>
 

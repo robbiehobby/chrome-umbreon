@@ -9,7 +9,7 @@ import "./global.css";
 createRoot(document.body).render(
   <StrictMode>
     <ThemeProvider attribute="class">
-      <Theme style={{ minHeight: "unset" }}>
+      <Theme accentColor="blue" radius="medium" style={{ minHeight: "unset" }}>
         <Page />
       </Theme>
     </ThemeProvider>

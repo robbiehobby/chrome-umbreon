@@ -1,4 +1,4 @@
-import { Box, Button, Callout, Flex, Grid, Heading, Select, Separator, Text } from "@radix-ui/themes";
+import { Box, Button, Callout, Flex, Grid, Select, Separator, Text } from "@radix-ui/themes";
 import { useEffect, useReducer, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import UiSlider from "../../../components/slider.tsx";
@@ -31,10 +31,6 @@ export default function Page() {
 
   return (
     <Box p="5" width="400px">
-      <Heading as="h1" size="5" mt="-1" mb="3">
-        {chromeApi.getMessage("name")}
-      </Heading>
-
       <Callout.Root color={!shortcut ? "orange" : "grass"} mb="5">
         <Callout.Text>
           <Flex as="span" align="center" gap="4">

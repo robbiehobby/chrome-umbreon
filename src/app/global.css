@@ -1,3 +1,8 @@
+:is(.dark, .dark-theme),
+:is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
+  --color-background: #0e121c;
+}
+
 body {
   margin: 0;
 }

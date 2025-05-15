@@ -1,6 +1,6 @@
-## Chrome Umbreon Extension
+## Chrome Shade Extension
 
-Change the tone of websites with a customizable overlay.
+Change the brightness and color temperature of websites using a customizable overlay.
 
 <br>
 

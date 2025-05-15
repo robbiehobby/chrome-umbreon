@@ -1,9 +1,9 @@
 {
   "name": {
-    "message": "Umbreon"
+    "message": "Shade"
   },
   "description": {
-    "message": "Change the tone of websites with a customizable overlay."
+    "message": "Change the brightness and color temperature of websites using a customizable overlay."
   },
   "activateCommand": {
     "message": "Toggle the overlay"

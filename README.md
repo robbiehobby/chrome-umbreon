@@ -5,3 +5,4 @@ Change the brightness and color temperature of websites using a customizable ove
 <br>
 
 ![](/metadata/screenshot-1.png)
+![](/metadata/screenshot-2.png)

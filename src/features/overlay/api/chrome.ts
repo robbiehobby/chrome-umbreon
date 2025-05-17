@@ -1,6 +1,6 @@
 import messagesJson from "../../../locales/en/messages.json";
 
-const overlay = { opacity: 0.5, blend: "multiply", color: "#18181a" };
+const overlay = { opacity: 0.5, blend: "normal", color: "#000000" };
 
 export const defaultSettings: Settings = {
   website: {

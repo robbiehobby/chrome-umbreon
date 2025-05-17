@@ -17,7 +17,7 @@ export default defineConfig({
   ],
   publicDir: "./static",
   build: {
-    outDir: "build",
+    outDir: "public",
     rollupOptions: {
       input: {
         main: "./index.html",

@@ -31,7 +31,7 @@ export default function Page() {
 
   return (
     <Box p="5" width="400px">
-      <Callout.Root color={!shortcut ? "orange" : "grass"} mb="5">
+      <Callout.Root color={!shortcut ? "orange" : "gray"} mb="5">
         <Callout.Text>
           <Flex as="span" align="center" gap="4">
             <UiTooltip.Root content={chromeApi.getMessage("shortcutHelp")}>
